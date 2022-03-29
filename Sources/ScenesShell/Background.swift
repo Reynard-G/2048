@@ -39,27 +39,6 @@ class Background : RenderableEntity {
             currentRect.topLeft.x = 110 // Reset x position and render the next row
         }
     }
-    // Add 
-    func generateRandomBlock(positions: [[Int]]) -> Int {
-        var availableSlots : [Int] = []
-         // This function is meant to be executed at the end once we have done all calculations on block movement (Board.generateBlock, in InteractiveLayer.swift)
-        for i in 0 ..< 4 {
-            for j in 0 ..< 4 {
-                if positions[i][j] == 0 {
-                    availableSlots.append((i*10)+j)                      
-                 /* Available Slots meaning
-                  
-                    First Row: [0, 1, 2, 3]
-                  Second Row:  [10, 11, 12, 13]
-                   Third Row:  [20, 21, 22, 23]
-                 Fourth Row:   [30, 31, 32, 33]
-                 */
-                }
-            }
-        }
-        let chosenSlot = availableSlots.randomElement()!
-        return chosenSlot
-    }
     // Add a function that can read and change the 'position' array based on key movements
     // Then add another function that can read the 'position' array and display on IGIS
     func positions(canvas: Canvas, positions: [Int]) {
