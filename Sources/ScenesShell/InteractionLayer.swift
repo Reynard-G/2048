@@ -17,11 +17,7 @@ class InteractionLayer : Layer, KeyDownHandler {
         // Same concept, just apply to multiple blocks. (Only works as intended for 1 block on the board)
         // W Key
         if currentMove == "w" || currentArrow == "ArrowUp"{
-            for i in 0 ..< 4 {
-                
             offsetY = 110
-            //            positions[i][j] = 0
-            }
         } else if currentMove == "a" || currentArrow == "ArrowLeft" {
             offsetX = 110
         } else if currentMove == "s" || currentArrow == "ArrowDown" {
@@ -70,7 +66,34 @@ class InteractionLayer : Layer, KeyDownHandler {
         i = (yCoord / 110) - 1
         j = (xCoord / 110) - 1
         return (i, j)
-    }*/
+        }*/
+
+    func checkWin() {
+        for i in  0 ..< 4 {
+            for j in 0 ..< 4 {
+                if positions[i][j] == 2048 {
+                    // Add a "You Win" sign here
+                    dispatcher.unregisterKeyDownHandler(handler: self)
+                }
+            }
+        }
+    }
+    
+    func checkLose() {
+        var availableSpace = 0
+        for i in 0 ..< 4 {
+            for j in 0 ..< 4 {
+                if positions[i][j] == 0 {
+                    availableSpace += 1
+                }
+            }
+        }
+        if availableSpace == 0 {
+            // Add a "You Lose" sign here
+            dispatcher.unregisterKeyDownHandler(handler: self)
+        }
+    }
+    
     func onKeyDown(key:String, code:String, ctrlKey:Bool, shiftKey:Bool, altKey:Bool, metaKey:Bool) {
         print(positions)
         if key == "w" || code == "ArrowUp" {
