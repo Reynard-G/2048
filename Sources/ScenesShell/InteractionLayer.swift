@@ -11,7 +11,7 @@ class InteractionLayer : Layer, KeyDownHandler {
     let Board = Background()
     let numBlock = block(rect: Rect(size: Size(width: 100, height: 100)))
     var positions : [Int] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    var offsetX = 110, offsetY = 110
+    var offsetX : Int = 110, offsetY : Int = 110
     
     func moveCoord(currentMove: String, currentArrow: String, offsetX: inout Int, offsetY: inout Int, positions: inout [Int]) {
         // Same concept, just apply to multiple blocks. (Only works as intended for 1 block on the board)
@@ -37,9 +37,8 @@ class InteractionLayer : Layer, KeyDownHandler {
     }*/
 
     func generateRandomBlock(positions: inout [Int]) {
-        // This function is meant to be executed at the end once we have done all calculations on block movement (Board.generateBlock, in InteractiveLayer.swift)
-        let randNum = Int.random(in: 0 ..< 16)
-        let randPercent = Int.random(in: 1 ... 10)
+        let randNum : Int = Int.random(in: 0 ..< 16)
+        let randPercent : Int = Int.random(in: 1 ... 10)
         if positions[randNum] == 0 {
             if randPercent == 10 {
                 positions[randNum] = 4
@@ -48,7 +47,7 @@ class InteractionLayer : Layer, KeyDownHandler {
                 positions[randNum] = 2
                 checkLose(positions: positions)
             }
-        } else {
+        } else if positions.contains(where: {$0 == 0}) { // If there is an available space on the board, continue
             generateRandomBlock(positions: &positions)
         }
     }
@@ -62,15 +61,15 @@ class InteractionLayer : Layer, KeyDownHandler {
     func moveRight(positions: inout [Int]) {
         for i in 0 ..< positions.count {
             if i % 4 == 0 {
-                let total1 = positions[i]
-                let total2 = positions[i + 1]
-                let total3 = positions[i + 2]
-                let total4 = positions[i + 3]
-                let row = [total1, total2, total3, total4]
-                let filteredRow = row.filter({$0 > 0})
-                let missing = 4 - filteredRow.count
-                let zeros = Array(repeating: 0, count: missing)
-                let newRow = zeros + filteredRow
+                let total1 : Int = positions[i]
+                let total2 : Int = positions[i + 1]
+                let total3 : Int = positions[i + 2]
+                let total4 : Int = positions[i + 3]
+                let row : [Int] = [total1, total2, total3, total4]
+                let filteredRow : [Int] = row.filter({$0 > 0})
+                let missing : Int = 4 - filteredRow.count
+                let zeros : [Int] = Array(repeating: 0, count: missing)
+                let newRow : [Int] = zeros + filteredRow
                 positions[i] = newRow[0]
                 positions[i + 1] = newRow[1]
                 positions[i + 2] = newRow[2]
@@ -81,15 +80,15 @@ class InteractionLayer : Layer, KeyDownHandler {
     func moveLeft(positions: inout [Int]) {
         for i in 0 ..< positions.count {
             if i % 4 == 0 {
-                let total1 = positions[i]
-                let total2 = positions[i + 1]
-                let total3 = positions[i + 2]
-                let total4 = positions[i + 3]
-                let row = [total1, total2, total3, total4]
-                let filteredRow = row.filter({$0 > 0})
-                let missing = 4 - filteredRow.count
-                let zeros = Array(repeating: 0, count: missing)
-                let newRow = filteredRow + zeros
+                let total1 : Int = positions[i]
+                let total2 : Int = positions[i + 1]
+                let total3 : Int = positions[i + 2]
+                let total4 : Int = positions[i + 3]
+                let row : [Int] = [total1, total2, total3, total4]
+                let filteredRow : [Int] = row.filter({$0 > 0})
+                let missing : Int = 4 - filteredRow.count
+                let zeros : [Int] = Array(repeating: 0, count: missing)
+                let newRow : [Int] = filteredRow + zeros
                 positions[i] = newRow[0]
                 positions[i + 1] = newRow[1]
                 positions[i + 2] = newRow[2]
@@ -99,15 +98,15 @@ class InteractionLayer : Layer, KeyDownHandler {
     }
     func moveUp(positions: inout [Int]) {
         for i in 0 ..< 4 {
-            let total1 = positions[i]
-            let total2 = positions[i + 4]
-            let total3 = positions[i + 8]
-            let total4 = positions[i + 12]
-            let column = [total1, total2, total3, total4]
-            let filteredColumn = column.filter({$0 > 0})
-            let missing = 4 - filteredColumn.count
-            let zeros = Array(repeating: 0, count: missing)
-            let newColumn = filteredColumn + zeros
+            let total1 : Int = positions[i]
+            let total2 : Int = positions[i + 4]
+            let total3 : Int = positions[i + 8]
+            let total4 : Int = positions[i + 12]
+            let column : [Int] = [total1, total2, total3, total4]
+            let filteredColumn : [Int] = column.filter({$0 > 0})
+            let missing : Int = 4 - filteredColumn.count
+            let zeros : [Int] = Array(repeating: 0, count: missing)
+            let newColumn : [Int] = filteredColumn + zeros
             positions[i] = newColumn[0]
             positions[i + 4] = newColumn[1]
             positions[i + 8] = newColumn[2]
@@ -116,15 +115,15 @@ class InteractionLayer : Layer, KeyDownHandler {
     }
     func moveDown(positions: inout [Int]) {
         for i in 0 ..< 4 {
-            let total1 = positions[i]
-            let total2 = positions[i + 4]
-            let total3 = positions[i + 8]
-            let total4 = positions[i + 12]
-            let column = [total1, total2, total3, total4]
-            let filteredColumn = column.filter({$0 > 0})
-            let missing = 4 - filteredColumn.count
-            let zeros = Array(repeating: 0, count: missing)
-            let newColumn = zeros + filteredColumn
+            let total1 : Int = positions[i]
+            let total2 : Int = positions[i + 4]
+            let total3 : Int = positions[i + 8]
+            let total4 : Int = positions[i + 12]
+            let column : [Int] = [total1, total2, total3, total4]
+            let filteredColumn : [Int] = column.filter({$0 > 0})
+            let missing : Int = 4 - filteredColumn.count
+            let zeros : [Int] = Array(repeating: 0, count: missing)
+            let newColumn : [Int] = zeros + filteredColumn
             positions[i] = newColumn[0]
             positions[i + 4] = newColumn[1]
             positions[i + 8] = newColumn[2]
@@ -134,7 +133,7 @@ class InteractionLayer : Layer, KeyDownHandler {
     func combineRow(positions: inout [Int]) {
         for i in 0 ..< 15 {
             if positions[i] == positions[i + 1] {
-                let combinedTotal = positions[i] + positions[i + 1]
+                let combinedTotal : Int = positions[i] + positions[i + 1]
                 positions[i] = combinedTotal
                 positions[i + 1] = 0
                 // Add score here
@@ -145,7 +144,7 @@ class InteractionLayer : Layer, KeyDownHandler {
     func combineColumn(positions: inout [Int]) {
         for i in 0 ..< 12 {
             if positions[i] == positions[i + 4] {
-                let combinedTotal = positions[i] + positions[i + 4]
+                let combinedTotal : Int = positions[i] + positions[i + 4]
                 positions[i] = combinedTotal
                 positions[i + 4] = 0
                 // Add score here
@@ -162,8 +161,8 @@ class InteractionLayer : Layer, KeyDownHandler {
     }
     
     func checkLose(positions: [Int]) {
-        var availableSpace = 0
-        var gameOver = true
+        var availableSpace : Int = 0
+        var gameOver : Bool = true
         for i in 0 ..< positions.count {
             if positions[i] == 0 {
                 availableSpace += 1
@@ -181,7 +180,7 @@ class InteractionLayer : Layer, KeyDownHandler {
                 gameOver = false
             }
         }
-        if (gameOver == true) && (availableSpace == 0) {
+        if gameOver && availableSpace == 0 {
             // Add a "You Lose" sign here
             dispatcher.unregisterKeyDownHandler(handler: self)
         }
