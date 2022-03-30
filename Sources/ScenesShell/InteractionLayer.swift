@@ -59,7 +59,6 @@ class InteractionLayer : Layer, KeyDownHandler {
         j = (xCoord / 110) - 1
         return (i, j)
         }*/
-
     func moveRight(positions: inout [Int]) {
         for i in 0 ..< positions.count {
             if i % 4 == 0 {
@@ -76,7 +75,6 @@ class InteractionLayer : Layer, KeyDownHandler {
                 positions[i + 1] = newRow[1]
                 positions[i + 2] = newRow[2]
                 positions[i + 3] = newRow[3]
-                // Doesn't work, troubleshoot filteredRow, etc
             }
         }
     }
@@ -99,6 +97,40 @@ class InteractionLayer : Layer, KeyDownHandler {
             }
         }
     }
+    func moveUp(positions: inout [Int]) {
+        for i in 0 ..< 4 {
+            let total1 = positions[i]
+            let total2 = positions[i + 4]
+            let total3 = positions[i + 8]
+            let total4 = positions[i + 12]
+            let column = [total1, total2, total3, total4]
+            let filteredColumn = column.filter({$0 > 0})
+            let missing = 4 - filteredColumn.count
+            let zeros = Array(repeating: 0, count: missing)
+            let newColumn = filteredColumn + zeros
+            positions[i] = newColumn[0]
+            positions[i + 4] = newColumn[1]
+            positions[i + 8] = newColumn[2]
+            positions[i + 12] = newColumn[3]
+        }
+    }
+    func moveDown(positions: inout [Int]) {
+        for i in 0 ..< 4 {
+            let total1 = positions[i]
+            let total2 = positions[i + 4]
+            let total3 = positions[i + 8]
+            let total4 = positions[i + 12]
+            let column = [total1, total2, total3, total4]
+            let filteredColumn = column.filter({$0 > 0})
+            let missing = 4 - filteredColumn.count
+            let zeros = Array(repeating: 0, count: missing)
+            let newColumn = zeros + filteredColumn
+            positions[i] = newColumn[0]
+            positions[i + 4] = newColumn[1]
+            positions[i + 8] = newColumn[2]
+            positions[i + 12] = newColumn[3]
+        }
+    }
     func combineRow(positions: inout [Int]) {
         for i in 0 ..< 15 {
             if positions[i] == positions[i + 1] {
@@ -106,12 +138,20 @@ class InteractionLayer : Layer, KeyDownHandler {
                 positions[i] = combinedTotal
                 positions[i + 1] = 0
                 // Add score here
-                // This works!!!
             }
         }
         checkWin(positions: positions)
     }
-    
+    func combineColumn(positions: inout [Int]) {
+        for i in 0 ..< 12 {
+            if positions[i] == positions[i + 4] {
+                let combinedTotal = positions[i] + positions[i + 4]
+                positions[i] = combinedTotal
+                positions[i + 4] = 0
+                // Add score here
+            }
+        }
+    }
     func checkWin(positions: [Int]) {
         for i in  0 ..< 16 {
             if positions[i] == 2048 {
@@ -158,21 +198,27 @@ class InteractionLayer : Layer, KeyDownHandler {
             print("Detected 'w' key!")
             moveCoord(currentMove: key, currentArrow: code, offsetX: &offsetX, offsetY: &offsetY, positions: &positions)
             numBlock.move(to: Point(x: offsetX, y: offsetY))
+            moveUp(positions: &positions)
+            combineColumn(positions: &positions)
+            moveUp(positions: &positions)
             generateRandomBlock(positions: &positions)
             printPos(positions: positions)
         } else if key == "a" || code == "ArrowLeft" {
             print("Detected 'a' key!")
             moveCoord(currentMove: key, currentArrow: code, offsetX: &offsetX, offsetY: &offsetY, positions: &positions)
             numBlock.move(to: Point(x: offsetX, y: offsetY))
-            generateRandomBlock(positions: &positions)
             moveLeft(positions: &positions)
             combineRow(positions: &positions)
             moveLeft(positions: &positions)
+            generateRandomBlock(positions: &positions)
             printPos(positions: positions)
         } else if key == "s" || code == "ArrowDown" {
             print("Detected 's' key!")
             moveCoord(currentMove: key, currentArrow: code, offsetX: &offsetX, offsetY: &offsetY, positions: &positions)
             numBlock.move(to: Point(x: offsetX, y: offsetY))
+            moveDown(positions: &positions)
+            combineColumn(positions: &positions)
+            moveDown(positions: &positions)
             generateRandomBlock(positions: &positions)
             printPos(positions: positions)
         } else if key == "d" || code == "ArrowRight" {
