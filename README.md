@@ -1,6 +1,9 @@
-# ScenesShellBasic
+# dos mil cuarenta y ocho
+2048!!!
 
-A basic shell to serve as a starting point for using Scenes.
-It includes a MainScene, three Layers, and one Background object
-but is otherwise empty.
-
+# Team Roles
+|        Name      |          Role          |
+| ---------------- | ---------------------- |
+| Reynard Gunawan  | if it works, it works  |
+|     Luan Dang    |     functions4life     |
+|   Michael Choi   |   certified lazy boi   |
