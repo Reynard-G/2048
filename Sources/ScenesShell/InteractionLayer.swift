@@ -158,8 +158,7 @@ class InteractionLayer : Layer, KeyDownHandler {
                 dispatcher.unregisterKeyDownHandler(handler: self)
             }
         }
-    }
-    
+    }    
     func checkLose(positions: [Int]) {
         var availableSpace : Int = 0
         var gameOver : Bool = true
@@ -191,7 +190,6 @@ class InteractionLayer : Layer, KeyDownHandler {
         print("[", positions[8], ",", positions[9], ",", positions[10], ",", positions[11], "]")
         print("[", positions[12], ",", positions[13], ",", positions[14], ",", positions[15], "]")
     }
-    
     func onKeyDown(key:String, code:String, ctrlKey:Bool, shiftKey:Bool, altKey:Bool, metaKey:Bool) {
         if key == "w" || code == "ArrowUp" {
             print("Detected 'w' key!")
@@ -241,6 +239,8 @@ class InteractionLayer : Layer, KeyDownHandler {
           // We insert our RenderableEntities in the constructor
       }
       override func preSetup(canvasSize: Size, canvas: Canvas) {
+          generateRandomBlock(positions: &positions)
+          generateRandomBlock(positions: &positions)
           dispatcher.registerKeyDownHandler(handler: self)
       }
       override func postTeardown() {
