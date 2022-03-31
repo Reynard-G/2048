@@ -4,6 +4,6 @@
 # Team Roles
 |        Name      |          Role          |
 | ---------------- | ---------------------- |
-| Reynard Gunawan  | if it works, it works  |
-|     Luan Dang    |     functions4life     |
-|   Michael Choi   |   certified lazy boi   |
+| Reynard Gunawan  |    if it works, it works     |
+|     Luan Dang    |        functions4life        |
+|   Michael Choi   |   certified procrastinator   |
