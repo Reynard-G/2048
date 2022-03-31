@@ -3,8 +3,8 @@ import Igis
 import Foundation
 
   /*
-dwdwdwdwd     This class is responsible for the interaction Layer.
-     Internally, it maintains the RenderableEntities for this layer.
+   dwdwdwdwd     This class is responsible for the interaction Layer.
+        Internally, it maintains the RenderableEntities for this layer.
    */
 
 class InteractionLayer : Layer, KeyDownHandler {
@@ -12,7 +12,7 @@ class InteractionLayer : Layer, KeyDownHandler {
     let numBlock = block(rect: Rect(size: Size(width: 100, height: 100)))
     var positions : [Int] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     var offsetX : Int = 110, offsetY : Int = 110
-    
+
     func moveCoord(currentMove: String, currentArrow: String, offsetX: inout Int, offsetY: inout Int, positions: inout [Int]) {
         // Same concept, just apply to multiple blocks. (Only works as intended for 1 block on the board)
         // W Key
@@ -28,13 +28,13 @@ class InteractionLayer : Layer, KeyDownHandler {
             // Do nothing here
         }
     }
-/*    func updateArr(positions: [[Int]], value: Int, offsetX: Int, offsetY: Int) {
-        i = offsetY / 110
-        j = offsetX / 110
-        i -= 1 // Make it so it doesn't go outside of the array
-        j -= 1
-        positions[i][j] = value
-    }*/
+    /*    func updateArr(positions: [[Int]], value: Int, offsetX: Int, offsetY: Int) {
+                  i = offsetY / 110
+                          j = offsetX / 110
+                                  i -= 1 // Make it so it doesn't go outside of the array
+                                          j -= 1
+                                                  positions[i][j] = value
+                                                  }*/
 
     func generateRandomBlock(positions: inout [Int]) {
         let randNum : Int = Int.random(in: 0 ..< 16)
@@ -51,13 +51,13 @@ class InteractionLayer : Layer, KeyDownHandler {
             generateRandomBlock(positions: &positions)
         }
     }
-    /*func coordToArr(positions: [[Int]], x: Int, y: Int) -> (Int, Int) {
-        var xCoord = x, yCoord = y
-        var i : Int, j : Int
-        i = (yCoord / 110) - 1
-        j = (xCoord / 110) - 1
-        return (i, j)
-        }*/
+        /*func coordToArr(positions: [[Int]], x: Int, y: Int) -> (Int, Int) {
+                  var xCoord = x, yCoord = y
+                          var i : Int, j : Int
+                                  i = (yCoord / 110) - 1
+                                          j = (xCoord / 110) - 1
+                                                  return (i, j)
+                                                  }*/
     func moveRight(positions: inout [Int]) {
         for i in 0 ..< positions.count {
             if i % 4 == 0 {
@@ -141,25 +141,13 @@ class InteractionLayer : Layer, KeyDownHandler {
         }
         checkWin(positions: positions)
     }
-    func combineColumn(positions: inout [Int], mode: String) {
-        if mode == "w" { // Up
-            for i in 0 ..< 12 {
-                if positions[i] == positions[i + 4] {
-                    let combinedTotal : Int = positions[i] + positions[i + 4]
-                    positions[i] = combinedTotal
-                    positions[i + 4] = 0
-                    // Add score here
-                }
-            }
-        }
-        if mode == "s" { // Down
-            for i in 4 ..< 16 {
-                if positions[i] == positions[i - 4] {
-                    let combinedTotal : Int = positions[i] + positions[i - 4]
-                    positions[i] = combinedTotal
-                    positions[i - 4] = 0
-                    // Add score here
-                }
+    func combineColumn(positions: inout [Int]) {
+        for i in 0 ..< 12 {
+            if positions[i] == positions[i + 4] {
+                let combinedTotal : Int = positions[i] + positions[i + 4]
+                positions[i] = combinedTotal
+                positions[i + 4] = 0
+                // Add score here
             }
         }
     }
@@ -170,7 +158,7 @@ class InteractionLayer : Layer, KeyDownHandler {
                 dispatcher.unregisterKeyDownHandler(handler: self)
             }
         }
-    }    
+    }
     func checkLose(positions: [Int]) {
         var availableSpace : Int = 0
         var gameOver : Bool = true
@@ -208,7 +196,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             moveCoord(currentMove: key, currentArrow: code, offsetX: &offsetX, offsetY: &offsetY, positions: &positions)
             numBlock.move(to: Point(x: offsetX, y: offsetY))
             moveUp(positions: &positions)
-            combineColumn(positions: &positions, mode: key)
+            combineColumn(positions: &positions)
             moveUp(positions: &positions)
             generateRandomBlock(positions: &positions)
             printPos(positions: positions)
@@ -226,7 +214,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             moveCoord(currentMove: key, currentArrow: code, offsetX: &offsetX, offsetY: &offsetY, positions: &positions)
             numBlock.move(to: Point(x: offsetX, y: offsetY))
             moveDown(positions: &positions)
-            combineColumn(positions: &positions, mode: key)
+            combineColumn(positions: &positions)
             moveDown(positions: &positions)
             generateRandomBlock(positions: &positions)
             printPos(positions: positions)
@@ -244,18 +232,18 @@ class InteractionLayer : Layer, KeyDownHandler {
         }
         insert(entity: numBlock, at: .front)
     }
-      init() {
-          // Using a meaningful name can be helpful for debugging
-          super.init(name:"Interaction")
-          
-          // We insert our RenderableEntities in the constructor
-      }
-      override func preSetup(canvasSize: Size, canvas: Canvas) {
-          generateRandomBlock(positions: &positions)
-          generateRandomBlock(positions: &positions)
-          dispatcher.registerKeyDownHandler(handler: self)
-      }
-      override func postTeardown() {
-          dispatcher.unregisterKeyDownHandler(handler: self)
-      }
-  }
+    init() {
+        // Using a meaningful name can be helpful for debugging
+        super.init(name:"Interaction")
+
+        // We insert our RenderableEntities in the constructor
+    }
+    override func preSetup(canvasSize: Size, canvas: Canvas) {
+        generateRandomBlock(positions: &positions)
+        generateRandomBlock(positions: &positions)
+        dispatcher.registerKeyDownHandler(handler: self)
+    }
+    override func postTeardown() {
+        dispatcher.unregisterKeyDownHandler(handler: self)
+    }
+}
