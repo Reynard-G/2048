@@ -154,10 +154,12 @@ class InteractionLayer : Layer, KeyDownHandler {
         }
         if mode == "s" { // Down
             for i in 4 ..< 16 {
-                let combinedTotal : Int = positions[i] + positions[i - 4]
-                positions[i] = combinedTotal
-                positions[i - 4] = 0
-                // Add score here
+                if positions[i] == positions[i - 4] {
+                    let combinedTotal : Int = positions[i] + positions[i - 4]
+                    positions[i] = combinedTotal
+                    positions[i - 4] = 0
+                    // Add score here
+                }
             }
         }
     }
