@@ -3,7 +3,7 @@ import Igis
 import Foundation
 
   /*
-     This class is responsible for the interaction Layer.
+dwdwdwdwd     This class is responsible for the interaction Layer.
      Internally, it maintains the RenderableEntities for this layer.
    */
 
@@ -141,12 +141,22 @@ class InteractionLayer : Layer, KeyDownHandler {
         }
         checkWin(positions: positions)
     }
-    func combineColumn(positions: inout [Int]) {
-        for i in 0 ..< 12 {
-            if positions[i] == positions[i + 4] {
-                let combinedTotal : Int = positions[i] + positions[i + 4]
+    func combineColumn(positions: inout [Int], mode: String) {
+        if mode == "w" { // Up
+            for i in 0 ..< 12 {
+                if positions[i] == positions[i + 4] {
+                    let combinedTotal : Int = positions[i] + positions[i + 4]
+                    positions[i] = combinedTotal
+                    positions[i + 4] = 0
+                    // Add score here
+                }
+            }
+        }
+        if mode == "s" { // Down
+            for i in 4 ..< 16 {
+                let combinedTotal : Int = positions[i] + positions[i - 4]
                 positions[i] = combinedTotal
-                positions[i + 4] = 0
+                positions[i - 4] = 0
                 // Add score here
             }
         }
@@ -196,7 +206,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             moveCoord(currentMove: key, currentArrow: code, offsetX: &offsetX, offsetY: &offsetY, positions: &positions)
             numBlock.move(to: Point(x: offsetX, y: offsetY))
             moveUp(positions: &positions)
-            combineColumn(positions: &positions)
+            combineColumn(positions: &positions, mode: key)
             moveUp(positions: &positions)
             generateRandomBlock(positions: &positions)
             printPos(positions: positions)
@@ -214,7 +224,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             moveCoord(currentMove: key, currentArrow: code, offsetX: &offsetX, offsetY: &offsetY, positions: &positions)
             numBlock.move(to: Point(x: offsetX, y: offsetY))
             moveDown(positions: &positions)
-            combineColumn(positions: &positions)
+            combineColumn(positions: &positions, mode: key)
             moveDown(positions: &positions)
             generateRandomBlock(positions: &positions)
             printPos(positions: positions)
