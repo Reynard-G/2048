@@ -3,7 +3,7 @@ import Igis
 import Foundation
 
   /*
-   dwdwdwdwd     This class is responsible for the interaction Layer.
+        This class is responsible for the interaction Layer.
         Internally, it maintains the RenderableEntities for this layer.
    */
 
@@ -14,18 +14,8 @@ class InteractionLayer : Layer, KeyDownHandler {
     var offsetX : Int = 110, offsetY : Int = 110
 
     func moveCoord(currentMove: String, currentArrow: String, offsetX: inout Int, offsetY: inout Int, positions: inout [Int]) {
-        // Same concept, just apply to multiple blocks. (Only works as intended for 1 block on the board)
-        // W Key
-        if currentMove == "w" || currentArrow == "ArrowUp"{
-            offsetY = 110
-        } else if currentMove == "a" || currentArrow == "ArrowLeft" {
-            offsetX = 110
-        } else if currentMove == "s" || currentArrow == "ArrowDown" {
-            offsetY = 440
-        } else if currentMove == "d" || currentArrow == "ArrowRight" {
-            offsetX = 440
-        } else {
-            // Do nothing here
+        for i in 0 ..< 16 {
+            
         }
     }
     /*    func updateArr(positions: [[Int]], value: Int, offsetX: Int, offsetY: Int) {
@@ -195,37 +185,57 @@ class InteractionLayer : Layer, KeyDownHandler {
             print("Detected 'w' key!")
             moveCoord(currentMove: key, currentArrow: code, offsetX: &offsetX, offsetY: &offsetY, positions: &positions)
             numBlock.move(to: Point(x: offsetX, y: offsetY))
-            moveUp(positions: &positions)
+            let prevPos = positions
+            moveUp(positions: &positions) // Check if it will be the same positions
+            //moveUp(positions: &positions)
             combineColumn(positions: &positions)
+            let currPos = positions
             moveUp(positions: &positions)
-            generateRandomBlock(positions: &positions)
+            if prevPos != currPos {
+                generateRandomBlock(positions: &positions)
+            }
             printPos(positions: positions)
         } else if key == "a" || code == "ArrowLeft" {
             print("Detected 'a' key!")
             moveCoord(currentMove: key, currentArrow: code, offsetX: &offsetX, offsetY: &offsetY, positions: &positions)
             numBlock.move(to: Point(x: offsetX, y: offsetY))
-            moveLeft(positions: &positions)
+            let prevPos = positions
+            moveLeft(positions: &positions) // Check if it will be the same positions
+            //moveLeft(positions: &positions)
             combineRow(positions: &positions)
+            let currPos = positions
             moveLeft(positions: &positions)
-            generateRandomBlock(positions: &positions)
+            if prevPos != currPos {
+                generateRandomBlock(positions: &positions)
+            }
             printPos(positions: positions)
         } else if key == "s" || code == "ArrowDown" {
             print("Detected 's' key!")
             moveCoord(currentMove: key, currentArrow: code, offsetX: &offsetX, offsetY: &offsetY, positions: &positions)
             numBlock.move(to: Point(x: offsetX, y: offsetY))
-            moveDown(positions: &positions)
+            let prevPos = positions
+            moveDown(positions: &positions) // Check if it will be the same positions
+           // moveDown(positions: &positions)
             combineColumn(positions: &positions)
+            let currPos = positions
             moveDown(positions: &positions)
-            generateRandomBlock(positions: &positions)
+            if prevPos != currPos {
+                generateRandomBlock(positions: &positions)
+            }
             printPos(positions: positions)
         } else if key == "d" || code == "ArrowRight" {
             print("Detected 'd' key!")
             moveCoord(currentMove: key, currentArrow: code, offsetX: &offsetX, offsetY: &offsetY, positions: &positions)
             numBlock.move(to: Point(x: offsetX, y: offsetY))
-            moveRight(positions: &positions)
+            let prevPos = positions
+            moveRight(positions: &positions) // Check if it will be the same positions
+            //moveRight(positions: &positions)
             combineRow(positions: &positions)
+            let currPos = positions
             moveRight(positions: &positions)
-            generateRandomBlock(positions: &positions)
+            if prevPos != currPos {
+                generateRandomBlock(positions: &positions)
+            }
             printPos(positions: positions)
         } else {
             print("Detected an unusable key!")
