@@ -60,10 +60,12 @@ class InteractionLayer : Layer, KeyDownHandler {
                 let missing : Int = 4 - filteredRow.count
                 let zeros : [Int] = Array(repeating: 0, count: missing)
                 let newRow : [Int] = zeros + filteredRow
-                positions[i] = newRow[0]
-                positions[i + 1] = newRow[1]
-                positions[i + 2] = newRow[2]
-                positions[i + 3] = newRow[3]
+                if row != newRow {
+                    positions[i] = newRow[0]
+                    positions[i + 1] = newRow[1]
+                    positions[i + 2] = newRow[2]
+                    positions[i + 3] = newRow[3]
+                }
             }
         }
     }
@@ -120,7 +122,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             positions[i + 12] = newColumn[3]
         }
     }
-    func combineRow(positions: inout [Int]) {
+    func combineRowLeft(positions: inout [Int]) {
         for i in 0 ..< 15 {
             if positions[i] == positions[i + 1] {
                 let combinedTotal : Int = positions[i] + positions[i + 1]
@@ -131,15 +133,35 @@ class InteractionLayer : Layer, KeyDownHandler {
         }
         checkWin(positions: positions)
     }
-    func combineColumn(positions: inout [Int]) {
+    func combineRowRight(positions: inout [Int]) {
+        for i in (0 ..< 15).reversed() {
+            if positions[i] == positions[i + 1] {
+                let combinedTotal : Int = positions[i] + positions[i + 1]
+                positions[i] = 0
+                positions[i + 1] = combinedTotal
+            }
+        }
+    }
+    func combineColumnUp(positions: inout [Int]) {
         for i in 0 ..< 12 {
             if positions[i] == positions[i + 4] {
                 let combinedTotal : Int = positions[i] + positions[i + 4]
-                positions[i] = combinedTotal
-                positions[i + 4] = 0
-                // Add score here
+                    positions[i] = combinedTotal
+                    positions[i + 4] = 0
+                    // Add score here
             }
         }
+        checkWin(positions: positions)
+    }
+    func combineColumnDown(positions: inout [Int]) {
+        for i in (0 ..< 12).reversed() {
+            if positions[i] == positions[i + 4] {
+                let combinedTotal : Int = positions[i] + positions[i + 4]
+                positions[i] = 0
+                positions[i + 4] = combinedTotal
+            }
+        }
+        checkWin(positions: positions)
     }
     func checkWin(positions: [Int]) {
         for i in  0 ..< 16 {
@@ -188,7 +210,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             let prevPos = positions
             moveUp(positions: &positions) // Check if it will be the same positions
             //moveUp(positions: &positions)
-            combineColumn(positions: &positions)
+            combineColumnUp(positions: &positions)
             let currPos = positions
             moveUp(positions: &positions)
             if prevPos != currPos {
@@ -202,7 +224,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             let prevPos = positions
             moveLeft(positions: &positions) // Check if it will be the same positions
             //moveLeft(positions: &positions)
-            combineRow(positions: &positions)
+            combineRowLeft(positions: &positions)
             let currPos = positions
             moveLeft(positions: &positions)
             if prevPos != currPos {
@@ -216,7 +238,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             let prevPos = positions
             moveDown(positions: &positions) // Check if it will be the same positions
            // moveDown(positions: &positions)
-            combineColumn(positions: &positions)
+            combineColumnDown(positions: &positions)
             let currPos = positions
             moveDown(positions: &positions)
             if prevPos != currPos {
@@ -230,7 +252,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             let prevPos = positions
             moveRight(positions: &positions) // Check if it will be the same positions
             //moveRight(positions: &positions)
-            combineRow(positions: &positions)
+            combineRowRight(positions: &positions)
             let currPos = positions
             moveRight(positions: &positions)
             if prevPos != currPos {
