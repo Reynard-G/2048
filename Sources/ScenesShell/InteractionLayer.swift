@@ -60,12 +60,10 @@ class InteractionLayer : Layer, KeyDownHandler {
                 let missing : Int = 4 - filteredRow.count
                 let zeros : [Int] = Array(repeating: 0, count: missing)
                 let newRow : [Int] = zeros + filteredRow
-                if row != newRow {
-                    positions[i] = newRow[0]
-                    positions[i + 1] = newRow[1]
-                    positions[i + 2] = newRow[2]
-                    positions[i + 3] = newRow[3]
-                }
+                positions[i] = newRow[0]
+                positions[i + 1] = newRow[1]
+                positions[i + 2] = newRow[2]
+                positions[i + 3] = newRow[3]
             }
         }
     }
