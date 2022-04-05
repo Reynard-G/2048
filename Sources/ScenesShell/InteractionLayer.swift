@@ -8,23 +8,8 @@ import Foundation
    */
 
 class InteractionLayer : Layer, KeyDownHandler {
-    let Board = Background()
-    let numBlock = block(rect: Rect(size: Size(width: 100, height: 100)))
+    let renderBlocks = RenderBlocks()
     var positions : [Int] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    var offsetX : Int = 110, offsetY : Int = 110
-
-    func moveCoord(currentMove: String, currentArrow: String, offsetX: inout Int, offsetY: inout Int, positions: inout [Int]) {
-        for i in 0 ..< 16 {
-            
-        }
-    }
-    /*    func updateArr(positions: [[Int]], value: Int, offsetX: Int, offsetY: Int) {
-                  i = offsetY / 110
-                          j = offsetX / 110
-                                  i -= 1 // Make it so it doesn't go outside of the array
-                                          j -= 1
-                                                  positions[i][j] = value
-                                                  }*/
 
     func generateRandomBlock(positions: inout [Int]) {
         let randNum : Int = Int.random(in: 0 ..< 16)
@@ -41,13 +26,6 @@ class InteractionLayer : Layer, KeyDownHandler {
             generateRandomBlock(positions: &positions)
         }
     }
-        /*func coordToArr(positions: [[Int]], x: Int, y: Int) -> (Int, Int) {
-                  var xCoord = x, yCoord = y
-                          var i : Int, j : Int
-                                  i = (yCoord / 110) - 1
-                                          j = (xCoord / 110) - 1
-                                                  return (i, j)
-                                                  }*/
     func moveRight(positions: inout [Int]) {
         for i in 0 ..< positions.count {
             if i % 4 == 0 {
@@ -177,15 +155,27 @@ class InteractionLayer : Layer, KeyDownHandler {
                 availableSpace += 1
             }
         }
-        // Combine Row Check
+        // Combine Row Right Check
         for i in 0 ..< 15 {
             if positions[i] == positions[i + 1] {
                 gameOver = false
             }
         }
-        // Combine Column Check
+        // Combine Row Left Check
+        for i in 1 ..< 16 {
+            if positions[i] == positions[i - 1] {
+                gameOver = false
+            }
+        }
+        // Combine Column Down Check
         for i in 0 ..< 12 {
             if positions[i] == positions[i + 4] {
+                gameOver = false
+            }
+        }
+        // Combine Column Up Check
+        for i in 4 ..< 16 {
+            if positions[i] == positions[i - 4] {
                 gameOver = false
             }
         }
@@ -203,8 +193,6 @@ class InteractionLayer : Layer, KeyDownHandler {
     func onKeyDown(key:String, code:String, ctrlKey:Bool, shiftKey:Bool, altKey:Bool, metaKey:Bool) {
         if key == "w" || code == "ArrowUp" {
             print("Detected 'w' key!")
-            moveCoord(currentMove: key, currentArrow: code, offsetX: &offsetX, offsetY: &offsetY, positions: &positions)
-            numBlock.move(to: Point(x: offsetX, y: offsetY))
             let prevPos = positions
             moveUp(positions: &positions) // Check if it will be the same positions
             //moveUp(positions: &positions)
@@ -217,8 +205,6 @@ class InteractionLayer : Layer, KeyDownHandler {
             printPos(positions: positions)
         } else if key == "a" || code == "ArrowLeft" {
             print("Detected 'a' key!")
-            moveCoord(currentMove: key, currentArrow: code, offsetX: &offsetX, offsetY: &offsetY, positions: &positions)
-            numBlock.move(to: Point(x: offsetX, y: offsetY))
             let prevPos = positions
             moveLeft(positions: &positions) // Check if it will be the same positions
             //moveLeft(positions: &positions)
@@ -231,8 +217,6 @@ class InteractionLayer : Layer, KeyDownHandler {
             printPos(positions: positions)
         } else if key == "s" || code == "ArrowDown" {
             print("Detected 's' key!")
-            moveCoord(currentMove: key, currentArrow: code, offsetX: &offsetX, offsetY: &offsetY, positions: &positions)
-            numBlock.move(to: Point(x: offsetX, y: offsetY))
             let prevPos = positions
             moveDown(positions: &positions) // Check if it will be the same positions
            // moveDown(positions: &positions)
@@ -245,8 +229,6 @@ class InteractionLayer : Layer, KeyDownHandler {
             printPos(positions: positions)
         } else if key == "d" || code == "ArrowRight" {
             print("Detected 'd' key!")
-            moveCoord(currentMove: key, currentArrow: code, offsetX: &offsetX, offsetY: &offsetY, positions: &positions)
-            numBlock.move(to: Point(x: offsetX, y: offsetY))
             let prevPos = positions
             moveRight(positions: &positions) // Check if it will be the same positions
             //moveRight(positions: &positions)
@@ -260,7 +242,7 @@ class InteractionLayer : Layer, KeyDownHandler {
         } else {
             print("Detected an unusable key!")
         }
-        insert(entity: numBlock, at: .front)
+        // Call `RenderBlocks` here
     }
     init() {
         // Using a meaningful name can be helpful for debugging
