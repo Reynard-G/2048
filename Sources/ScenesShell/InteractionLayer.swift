@@ -7,10 +7,10 @@ import Foundation
         Internally, it maintains the RenderableEntities for this layer.
    */
 
-class InteractionLayer : Layer, KeyDownHandler {
-    let renderBlocks = RenderBlocks()
-    var positions : [Int] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+public var positions : [Int] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
+class InteractionLayer : Layer, KeyDownHandler {
+    
     func generateRandomBlock(positions: inout [Int]) {
         let randNum : Int = Int.random(in: 0 ..< 16)
         let randPercent : Int = Int.random(in: 1 ... 10)
@@ -191,11 +191,11 @@ class InteractionLayer : Layer, KeyDownHandler {
         print("[", positions[12], ",", positions[13], ",", positions[14], ",", positions[15], "]")
     }
     func onKeyDown(key:String, code:String, ctrlKey:Bool, shiftKey:Bool, altKey:Bool, metaKey:Bool) {
+        let renderBlocks = RenderBlocks()
         if key == "w" || code == "ArrowUp" {
             print("Detected 'w' key!")
             let prevPos = positions
             moveUp(positions: &positions) // Check if it will be the same positions
-            //moveUp(positions: &positions)
             combineColumnUp(positions: &positions)
             let currPos = positions
             moveUp(positions: &positions)
@@ -203,11 +203,11 @@ class InteractionLayer : Layer, KeyDownHandler {
                 generateRandomBlock(positions: &positions)
             }
             printPos(positions: positions)
+            insert(entity: renderBlocks, at: .front)
         } else if key == "a" || code == "ArrowLeft" {
             print("Detected 'a' key!")
             let prevPos = positions
             moveLeft(positions: &positions) // Check if it will be the same positions
-            //moveLeft(positions: &positions)
             combineRowLeft(positions: &positions)
             let currPos = positions
             moveLeft(positions: &positions)
@@ -215,11 +215,11 @@ class InteractionLayer : Layer, KeyDownHandler {
                 generateRandomBlock(positions: &positions)
             }
             printPos(positions: positions)
+            insert(entity: renderBlocks, at: .front)
         } else if key == "s" || code == "ArrowDown" {
             print("Detected 's' key!")
             let prevPos = positions
             moveDown(positions: &positions) // Check if it will be the same positions
-           // moveDown(positions: &positions)
             combineColumnDown(positions: &positions)
             let currPos = positions
             moveDown(positions: &positions)
@@ -227,11 +227,11 @@ class InteractionLayer : Layer, KeyDownHandler {
                 generateRandomBlock(positions: &positions)
             }
             printPos(positions: positions)
+            insert(entity: renderBlocks, at: .front)
         } else if key == "d" || code == "ArrowRight" {
             print("Detected 'd' key!")
             let prevPos = positions
             moveRight(positions: &positions) // Check if it will be the same positions
-            //moveRight(positions: &positions)
             combineRowRight(positions: &positions)
             let currPos = positions
             moveRight(positions: &positions)
@@ -239,10 +239,10 @@ class InteractionLayer : Layer, KeyDownHandler {
                 generateRandomBlock(positions: &positions)
             }
             printPos(positions: positions)
+            insert(entity: renderBlocks, at: .front)
         } else {
             print("Detected an unusable key!")
         }
-        // Call `RenderBlocks` here
     }
     init() {
         // Using a meaningful name can be helpful for debugging
