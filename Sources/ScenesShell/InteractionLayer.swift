@@ -10,6 +10,8 @@ import Foundation
 public var positions : [Int] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 class InteractionLayer : Layer, KeyDownHandler {
+    let renderBlocks = RenderBlocks()
+    
     func generateRandomBlock(positions: inout [Int]) {
         let randNum : Int = Int.random(in: 0 ..< 16)
         let randPercent : Int = Int.random(in: 1 ... 10)
@@ -201,8 +203,6 @@ class InteractionLayer : Layer, KeyDownHandler {
             if prevPos != currPos {
                 generateRandomBlock(positions: &positions)
             }
-            let renderBlocks = RenderBlocks()
-            insert(entity: renderBlocks, at: .front)
         } else if key == "a" || code == "ArrowLeft" {
             let prevPos = positions
             moveLeft(positions: &positions) // Check if it will be the same positions
@@ -212,8 +212,6 @@ class InteractionLayer : Layer, KeyDownHandler {
             if prevPos != currPos {
                 generateRandomBlock(positions: &positions)
             }
-            let renderBlocks = RenderBlocks()
-            insert(entity: renderBlocks, at: .front)
         } else if key == "s" || code == "ArrowDown" {
             let prevPos = positions
             moveDown(positions: &positions) // Check if it will be the same positions
@@ -223,8 +221,6 @@ class InteractionLayer : Layer, KeyDownHandler {
             if prevPos != currPos {
                 generateRandomBlock(positions: &positions)
             }
-            let renderBlocks = RenderBlocks()
-            insert(entity: renderBlocks, at: .front)
         } else if key == "d" || code == "ArrowRight" {
             let prevPos = positions
             moveRight(positions: &positions) // Check if it will be the same positions
@@ -234,8 +230,6 @@ class InteractionLayer : Layer, KeyDownHandler {
             if prevPos != currPos {
                 generateRandomBlock(positions: &positions)
             }
-            let renderBlocks = RenderBlocks()
-            insert(entity: renderBlocks, at: .front)
         } else {
         }
     }
@@ -244,6 +238,7 @@ class InteractionLayer : Layer, KeyDownHandler {
         super.init(name:"Interaction")
 
         // We insert our RenderableEntities in the constructor
+        insert(entity: renderBlocks, at: .front)
     }
     override func preSetup(canvasSize: Size, canvas: Canvas) {
         generateRandomBlock(positions: &positions)
