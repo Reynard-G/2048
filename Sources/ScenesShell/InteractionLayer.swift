@@ -10,7 +10,6 @@ import Foundation
 public var positions : [Int] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 class InteractionLayer : Layer, KeyDownHandler {
-    
     func generateRandomBlock(positions: inout [Int]) {
         let randNum : Int = Int.random(in: 0 ..< 16)
         let randPercent : Int = Int.random(in: 1 ... 10)
@@ -191,7 +190,6 @@ class InteractionLayer : Layer, KeyDownHandler {
         print("[", positions[12], ",", positions[13], ",", positions[14], ",", positions[15], "]")
     }
     func onKeyDown(key:String, code:String, ctrlKey:Bool, shiftKey:Bool, altKey:Bool, metaKey:Bool) {
-        let renderBlocks = RenderBlocks()
         if key == "w" || code == "ArrowUp" {
             print("Detected 'w' key!")
             let prevPos = positions
@@ -203,6 +201,7 @@ class InteractionLayer : Layer, KeyDownHandler {
                 generateRandomBlock(positions: &positions)
             }
             printPos(positions: positions)
+            let renderBlocks = RenderBlocks()
             insert(entity: renderBlocks, at: .front)
         } else if key == "a" || code == "ArrowLeft" {
             print("Detected 'a' key!")
@@ -215,6 +214,7 @@ class InteractionLayer : Layer, KeyDownHandler {
                 generateRandomBlock(positions: &positions)
             }
             printPos(positions: positions)
+            let renderBlocks = RenderBlocks()
             insert(entity: renderBlocks, at: .front)
         } else if key == "s" || code == "ArrowDown" {
             print("Detected 's' key!")
@@ -227,6 +227,7 @@ class InteractionLayer : Layer, KeyDownHandler {
                 generateRandomBlock(positions: &positions)
             }
             printPos(positions: positions)
+            let renderBlocks = RenderBlocks()
             insert(entity: renderBlocks, at: .front)
         } else if key == "d" || code == "ArrowRight" {
             print("Detected 'd' key!")
@@ -239,6 +240,7 @@ class InteractionLayer : Layer, KeyDownHandler {
                 generateRandomBlock(positions: &positions)
             }
             printPos(positions: positions)
+            let renderBlocks = RenderBlocks()
             insert(entity: renderBlocks, at: .front)
         } else {
             print("Detected an unusable key!")

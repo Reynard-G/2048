@@ -7,65 +7,26 @@ import Igis
 
 
 class Background : RenderableEntity {
-    var positionArr : [Int] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    let fillStyleLightGray = FillStyle(color: Color(.lightgray))
-    let fillStyleDarkGray = FillStyle(color: Color(.darkgray))    
-    // Make all different types of blocks here
-    
     func board(canvas: Canvas, biggerSquare: Rect, square: Rect) {
         var currentRect = square
         let bigBoiSquare = Rectangle(rect: biggerSquare, fillMode: .fill)
         var Square = Rectangle(rect: square, fillMode: .fill)
-
-/*  ARRAY ELEMENT DEFINITIONS
-        0 means EMPTY
-        2 means 2-block
-        4 means 4-block
-        8 means 8-block
-        16 means 16-block
-        32 means 32-block
-        64 means 64-block
-        128 means 128-block
-        (The index of the array represents the POSITION of the block, the value of the index represent what KIND OF BLOCK it is)
-*/        
-        canvas.render(fillStyleDarkGray, bigBoiSquare)
+        canvas.render(FillStyle(color: Color(red: 186, green: 173, blue: 161)), bigBoiSquare)
         for _ in 0 ..< 4 {
             for _ in 0 ..< 4 {
                 Square = Rectangle(rect: currentRect, fillMode: .fill)
-                canvas.render(fillStyleLightGray, Square)
+                canvas.render(FillStyle(color: Color(red: 205, green: 192, blue: 181)), Square)
                 currentRect.topLeft.x += currentRect.size.width + 10 // Make a space of 10 units between squares horizontally
             }
             currentRect.topLeft.y += currentRect.size.height + 10 // Make a space of 10 units between squares vertically
             currentRect.topLeft.x = 110 // Reset x position and render the next row
         }
     }
-    // Add a function that can read and change the 'position' array based on key movements
-    // Then add another function that can read the 'position' array and display on IGIS
-    func positions(canvas: Canvas, positions: [Int]) {
-        for i in 0 ..< positions.count {
-            if positions[i] == 2 {
-                // Need to position these renders
-                //canvas.render()
-                print()
-            } else if positions[i] == 4 {
-                //canvas.render()
-                print()
-            } else if positions[i] == 8 {
-                //canvas.render()
-                print()
-            } else if positions[i] == 16 {
-                //canvas.render()
-                print("works!")
-            } else if positions[i] == 32 {
-                //canvas.render()
-                print()
-            } else if positions[i] == 64 {
-                //canvas.render()
-                print()
-            } else if positions[i] == 128 {
-                //canvas.render()
-                print()
-            } // Contuine till 2048
+    func background(canvas: Canvas) {
+        if let canvasSize = canvas.canvasSize {
+            let canvasRect = Rect(topLeft: Point(), size: canvasSize)
+            let canvasRectangle = Rectangle(rect: canvasRect, fillMode: .fill)
+            canvas.render(FillStyle(color: Color(red: 251, green: 249, blue: 239)), canvasRectangle)
         }
     }
       init() {
@@ -76,6 +37,7 @@ class Background : RenderableEntity {
       override func setup(canvasSize: Size, canvas: Canvas) {
           let bigBoiSqr = Rect(topLeft: Point(x: 100, y: 100), size: Size(width: 450, height: 450))
           let Sqr = Rect(topLeft: Point(x: 110, y: 110), size: Size(width: 100, height: 100))
+          background(canvas: canvas)
           board(canvas: canvas, biggerSquare: bigBoiSqr, square: Sqr)
       }
 }
