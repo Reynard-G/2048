@@ -183,15 +183,16 @@ class InteractionLayer : Layer, KeyDownHandler {
             dispatcher.unregisterKeyDownHandler(handler: self)
         }
     }
-    func printPos(positions: [Int]) {
+/*    func printPos(positions: [Int]) {
         print("[", positions[0], ",", positions[1], ",", positions[2], ",", positions[3], "]")
         print("[", positions[4], ",", positions[5], ",", positions[6], ",", positions[7], "]")
         print("[", positions[8], ",", positions[9], ",", positions[10], ",", positions[11], "]")
         print("[", positions[12], ",", positions[13], ",", positions[14], ",", positions[15], "]")
     }
+    
+ */
     func onKeyDown(key:String, code:String, ctrlKey:Bool, shiftKey:Bool, altKey:Bool, metaKey:Bool) {
         if key == "w" || code == "ArrowUp" {
-            print("Detected 'w' key!")
             let prevPos = positions
             moveUp(positions: &positions) // Check if it will be the same positions
             combineColumnUp(positions: &positions)
@@ -200,11 +201,9 @@ class InteractionLayer : Layer, KeyDownHandler {
             if prevPos != currPos {
                 generateRandomBlock(positions: &positions)
             }
-            printPos(positions: positions)
             let renderBlocks = RenderBlocks()
             insert(entity: renderBlocks, at: .front)
         } else if key == "a" || code == "ArrowLeft" {
-            print("Detected 'a' key!")
             let prevPos = positions
             moveLeft(positions: &positions) // Check if it will be the same positions
             combineRowLeft(positions: &positions)
@@ -213,11 +212,9 @@ class InteractionLayer : Layer, KeyDownHandler {
             if prevPos != currPos {
                 generateRandomBlock(positions: &positions)
             }
-            printPos(positions: positions)
             let renderBlocks = RenderBlocks()
             insert(entity: renderBlocks, at: .front)
         } else if key == "s" || code == "ArrowDown" {
-            print("Detected 's' key!")
             let prevPos = positions
             moveDown(positions: &positions) // Check if it will be the same positions
             combineColumnDown(positions: &positions)
@@ -226,11 +223,9 @@ class InteractionLayer : Layer, KeyDownHandler {
             if prevPos != currPos {
                 generateRandomBlock(positions: &positions)
             }
-            printPos(positions: positions)
             let renderBlocks = RenderBlocks()
             insert(entity: renderBlocks, at: .front)
         } else if key == "d" || code == "ArrowRight" {
-            print("Detected 'd' key!")
             let prevPos = positions
             moveRight(positions: &positions) // Check if it will be the same positions
             combineRowRight(positions: &positions)
@@ -239,11 +234,9 @@ class InteractionLayer : Layer, KeyDownHandler {
             if prevPos != currPos {
                 generateRandomBlock(positions: &positions)
             }
-            printPos(positions: positions)
             let renderBlocks = RenderBlocks()
             insert(entity: renderBlocks, at: .front)
         } else {
-            print("Detected an unusable key!")
         }
     }
     init() {
