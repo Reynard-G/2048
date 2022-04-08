@@ -13,6 +13,7 @@ public var score : Int = 0
 class InteractionLayer : Layer, KeyDownHandler {
     let renderBlocks = RenderBlocks()
     let displayScore = Score()
+    var alreadyInit : Bool = false
     
     func generateRandomBlock(positions: inout [Int]) {
         let randNum : Int = Int.random(in: 0 ..< 16)
@@ -195,8 +196,8 @@ class InteractionLayer : Layer, KeyDownHandler {
             let prevPos = positions
             moveUp(positions: &positions) // Check if it will be the same positions
             combineColumnUp(positions: &positions)
-            let currPos = positions
             moveUp(positions: &positions)
+            let currPos = positions
             if prevPos != currPos {
                 generateRandomBlock(positions: &positions)
             }
@@ -204,8 +205,8 @@ class InteractionLayer : Layer, KeyDownHandler {
             let prevPos = positions
             moveLeft(positions: &positions) // Check if it will be the same positions
             combineRowLeft(positions: &positions)
-            let currPos = positions
             moveLeft(positions: &positions)
+            let currPos = positions
             if prevPos != currPos {
                 generateRandomBlock(positions: &positions)
             }
@@ -213,8 +214,8 @@ class InteractionLayer : Layer, KeyDownHandler {
             let prevPos = positions
             moveDown(positions: &positions) // Check if it will be the same positions
             combineColumnDown(positions: &positions)
-            let currPos = positions
             moveDown(positions: &positions)
+            let currPos = positions
             if prevPos != currPos {
                 generateRandomBlock(positions: &positions)
             }
@@ -222,8 +223,8 @@ class InteractionLayer : Layer, KeyDownHandler {
             let prevPos = positions
             moveRight(positions: &positions) // Check if it will be the same positions
             combineRowRight(positions: &positions)
-            let currPos = positions
             moveRight(positions: &positions)
+            let currPos = positions
             if prevPos != currPos {
                 generateRandomBlock(positions: &positions)
             }
@@ -236,8 +237,10 @@ class InteractionLayer : Layer, KeyDownHandler {
         // We insert our RenderableEntities in the constructor
         insert(entity: renderBlocks, at: .front)
         insert(entity: displayScore, at: .front)
-        generateRandomBlock(positions: &positions)
-        generateRandomBlock(positions: &positions)
+        if positions.allSatisfy({$0 == 0}) {
+            generateRandomBlock(positions: &positions)
+            generateRandomBlock(positions: &positions)
+        }
     }
     override func preSetup(canvasSize: Size, canvas: Canvas) {
         dispatcher.registerKeyDownHandler(handler: self)
