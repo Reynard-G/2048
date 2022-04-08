@@ -27,15 +27,13 @@ class RenderBlocks : RenderableEntity {
                 fatalError("The only acceptable 'coord' inputs are `x` & `y`.")
             }
         }
-        return 0.0
+        return 0.0 // Will never reach this unless "coord" is not "x" or "y", which will be a mistake.
     }
-    // Create a function here to find where the blocks are suppose to render
     func Blocks(canvas: Canvas, value: Int, x: Double, y: Double) {
         let rect = Rect(topLeft: Point(x: Int(x), y: Int(y)), size: Size(width: 100, height: 100))
         let Block = Rectangle(rect: rect, fillMode: .fill)
         switch(value) {
         case 2:
-            // Design/render blocks here
             let Block2Text = Text(location: Point(x: Int(x) + 38, y: Int(y) + 68), text: "2")
             Block2Text.font = "40pt Clear-Sans"
             canvas.render(FillStyle(color: Color(red: 238, green: 228, blue: 218)), Block, FillStyle(color: Color(red: 119, green: 110, blue: 101)), Block2Text)
@@ -96,15 +94,13 @@ class RenderBlocks : RenderableEntity {
         }
     }
     func renderLayout(canvas: Canvas) {
-        // Loop 16 times throughout the array and render in the approriate variables from the functions (Block2, Block4, etc).
+        // Loop 16 times throughout the array and render in the approriate variables from the function.
         for i in 0 ..< positions.count {
             switch(positions[i]) {
             case 0:
                 // Leave this alone
                 break;
             case 2:
-                // Call Blocks() and render the appropriate blocks here.
-                // Maybe like getXCoords(index: i) & getYCoords(index: i) (It turns the index to coords on the array and relays it back to Blocks() like this    VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV)
                 Blocks(canvas: canvas, value: 2, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
                 break;
             case 4:

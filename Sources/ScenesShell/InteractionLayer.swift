@@ -190,14 +190,6 @@ class InteractionLayer : Layer, KeyDownHandler {
             dispatcher.unregisterKeyDownHandler(handler: self)
         }
     }
-/*    func printPos(positions: [Int]) {
-        print("[", positions[0], ",", positions[1], ",", positions[2], ",", positions[3], "]")
-        print("[", positions[4], ",", positions[5], ",", positions[6], ",", positions[7], "]")
-        print("[", positions[8], ",", positions[9], ",", positions[10], ",", positions[11], "]")
-        print("[", positions[12], ",", positions[13], ",", positions[14], ",", positions[15], "]")
-    }
-    
- */
     func onKeyDown(key:String, code:String, ctrlKey:Bool, shiftKey:Bool, altKey:Bool, metaKey:Bool) {
         if key == "w" || code == "ArrowUp" {
             let prevPos = positions
