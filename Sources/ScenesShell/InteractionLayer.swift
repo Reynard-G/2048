@@ -13,6 +13,7 @@ public var score : Int = 0
 class InteractionLayer : Layer, KeyDownHandler {
     let renderBlocks = RenderBlocks()
     let displayScore = Score()
+    let resetButton = Button()
     
     func generateRandomBlock(positions: inout [Int]) {
         let randNum : Int = Int.random(in: 0 ..< 16)
@@ -236,7 +237,8 @@ class InteractionLayer : Layer, KeyDownHandler {
         // We insert our RenderableEntities in the constructor
         insert(entity: renderBlocks, at: .front)
         insert(entity: displayScore, at: .front)
-        if positions.allSatisfy({$0 == 0}) {
+        insert(entity: resetButton, at: .front)
+        if positions.allSatisfy({$0 == 0}) { // If all of elements of positions is 0, continue
             generateRandomBlock(positions: &positions)
             generateRandomBlock(positions: &positions)
         }
