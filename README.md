@@ -3,7 +3,7 @@
 
 # Team Roles
 |        Name      |             Role             |
-| ---------------- | ---------------------------- |
+| :---------------:| :--------------------------: |
 | Reynard Gunawan  |       Backend Developer      |
-|     Luan Dang    |        functions4life        |
-|   Michael Choi   |   certified procrastinator   |
+|     Luan Dang    |       Graphics Engineer      |
+|   Michael Choi   |        Graphic Designer      |
