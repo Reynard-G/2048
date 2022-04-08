@@ -13,7 +13,6 @@ public var score : Int = 0
 class InteractionLayer : Layer, KeyDownHandler {
     let renderBlocks = RenderBlocks()
     let displayScore = Score()
-    var alreadyInit : Bool = false
     
     func generateRandomBlock(positions: inout [Int]) {
         let randNum : Int = Int.random(in: 0 ..< 16)
