@@ -2,12 +2,12 @@ import Scenes
 import Igis
 
   /*
-     This class is responsible for rendering the background.
+        This class is responsible for rendering the background.
    */
 
 
 class Background : RenderableEntity {
-    func board(canvas: Canvas, biggerSquare: Rect, square: Rect) {
+    func board(canvas: Canvas, canvasSize: Size, biggerSquare: Rect, square: Rect) {
         var currentRect = square
         let bigBoiSquare = Rectangle(rect: biggerSquare, fillMode: .fill)
         var Square = Rectangle(rect: square, fillMode: .fill)
@@ -16,10 +16,10 @@ class Background : RenderableEntity {
             for _ in 0 ..< 4 {
                 Square = Rectangle(rect: currentRect, fillMode: .fill)
                 canvas.render(FillStyle(color: Color(red: 205, green: 192, blue: 181)), Square)
-                currentRect.topLeft.x += currentRect.size.width + 10 // Make a space of 10 units between squares horizontally
+                currentRect.topLeft.x += 110 // Make a space of 10 units between squares horizontally
             }
-            currentRect.topLeft.y += currentRect.size.height + 10 // Make a space of 10 units between squares vertically
-            currentRect.topLeft.x = 110 // Reset x position and render the next row
+            currentRect.topLeft.y += 110 // Make a space of 10 units between squares vertically
+            currentRect.topLeft.x = canvasSize.center.x - 215 // Reset x position and render the next row
         }
     }
     func background(canvas: Canvas) {
@@ -29,15 +29,15 @@ class Background : RenderableEntity {
             canvas.render(FillStyle(color: Color(red: 251, green: 249, blue: 239)), canvasRectangle)
         }
     }
-      init() {
-          // Using a meaningful name can be helpful for debugging
-          super.init(name:"Background")
-      }
-      // THE POSITIONS ARRAY WILL BE MOVED TO THE INTERACTION LAYER
-      override func setup(canvasSize: Size, canvas: Canvas) {
-          let bigBoiSqr = Rect(topLeft: Point(x: 100, y: 100), size: Size(width: 450, height: 450))
-          let Sqr = Rect(topLeft: Point(x: 110, y: 110), size: Size(width: 100, height: 100))
-          background(canvas: canvas)
-          board(canvas: canvas, biggerSquare: bigBoiSqr, square: Sqr)
-      }
+    init() {
+        // Using a meaningful name can be helpful for debugging
+        super.init(name:"Background")
+    }
+    // THE POSITIONS ARRAY WILL BE MOVED TO THE INTERACTION LAYER
+    override func setup(canvasSize: Size, canvas: Canvas) {
+        let bigBoiSqr = Rect(topLeft: Point(x: canvasSize.center.x - 225, y: canvasSize.center.x - 225), size: Size(width: 450, height: 450))
+        let Sqr = Rect(topLeft: Point(x: canvasSize.center.x - 215, y: canvasSize.center.x - 215), size: Size(width: 100, height: 100))
+        background(canvas: canvas)
+        board(canvas: canvas, canvasSize: canvasSize, biggerSquare: bigBoiSqr, square: Sqr)
+    }
 }

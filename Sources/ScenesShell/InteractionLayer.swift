@@ -8,9 +8,11 @@ import Foundation
    */
 
 public var positions : [Int] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+public var score : Int = 0
 
 class InteractionLayer : Layer, KeyDownHandler {
     let renderBlocks = RenderBlocks()
+    let displayScore = Score()
     
     func generateRandomBlock(positions: inout [Int]) {
         let randNum : Int = Int.random(in: 0 ..< 16)
@@ -105,7 +107,7 @@ class InteractionLayer : Layer, KeyDownHandler {
                 let combinedTotal : Int = positions[i] + positions[i + 1]
                 positions[i] = combinedTotal
                 positions[i + 1] = 0
-                // Add score here
+                score += combinedTotal
             }
         }
         checkWin(positions: positions)
@@ -116,8 +118,10 @@ class InteractionLayer : Layer, KeyDownHandler {
                 let combinedTotal : Int = positions[i] + positions[i + 1]
                 positions[i] = 0
                 positions[i + 1] = combinedTotal
+                score += combinedTotal
             }
         }
+        checkWin(positions: positions)
     }
     func combineColumnUp(positions: inout [Int]) {
         for i in 0 ..< 12 {
@@ -125,7 +129,7 @@ class InteractionLayer : Layer, KeyDownHandler {
                 let combinedTotal : Int = positions[i] + positions[i + 4]
                     positions[i] = combinedTotal
                     positions[i + 4] = 0
-                    // Add score here
+                    score += combinedTotal
             }
         }
         checkWin(positions: positions)
@@ -136,6 +140,7 @@ class InteractionLayer : Layer, KeyDownHandler {
                 let combinedTotal : Int = positions[i] + positions[i + 4]
                 positions[i] = 0
                 positions[i + 4] = combinedTotal
+                score += combinedTotal
             }
         }
         checkWin(positions: positions)
@@ -230,7 +235,6 @@ class InteractionLayer : Layer, KeyDownHandler {
             if prevPos != currPos {
                 generateRandomBlock(positions: &positions)
             }
-        } else {
         }
     }
     init() {
@@ -239,13 +243,15 @@ class InteractionLayer : Layer, KeyDownHandler {
 
         // We insert our RenderableEntities in the constructor
         insert(entity: renderBlocks, at: .front)
+        insert(entity: displayScore, at: .front)
+        generateRandomBlock(positions: &positions)
+        generateRandomBlock(positions: &positions)
     }
     override func preSetup(canvasSize: Size, canvas: Canvas) {
-        generateRandomBlock(positions: &positions)
-        generateRandomBlock(positions: &positions)
         dispatcher.registerKeyDownHandler(handler: self)
     }
     override func postTeardown() {
+        // Make it so that positions, score, and board is cleared here after refresh.
         dispatcher.unregisterKeyDownHandler(handler: self)
     }
 }
