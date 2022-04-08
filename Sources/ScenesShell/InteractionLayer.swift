@@ -103,26 +103,30 @@ class InteractionLayer : Layer, KeyDownHandler {
         }
     }
     func combineRowLeft(positions: inout [Int]) {
-        for i in 0 ..< 15 {
-            if positions[i] == positions[i + 1] {
-                let combinedTotal : Int = positions[i] + positions[i + 1]
-                positions[i] = combinedTotal
-                positions[i + 1] = 0
-                score += combinedTotal
+        for i in 1 ..< 16 {
+            if (i != 4 && i != 8 && i != 12) { // Prevents combining from other rows
+                if positions[i] == positions[i - 1] {
+                    let combinedTotal : Int = positions[i] + positions[i - 1]
+                    positions[i] = 0
+                    positions[i - 1] = combinedTotal
+                    score += combinedTotal
+                }
             }
+            checkWin(positions: positions)
         }
-        checkWin(positions: positions)
     }
     func combineRowRight(positions: inout [Int]) {
         for i in (0 ..< 15).reversed() {
-            if positions[i] == positions[i + 1] {
-                let combinedTotal : Int = positions[i] + positions[i + 1]
-                positions[i] = 0
-                positions[i + 1] = combinedTotal
-                score += combinedTotal
+            if (i != 11 && i != 7 && i != 3) { // Prevents combining from other rows
+                if positions[i] == positions[i + 1] {
+                    let combinedTotal : Int = positions[i] + positions[i + 1]
+                    positions[i] = 0
+                    positions[i + 1] = combinedTotal
+                    score += combinedTotal
+                }
             }
+            checkWin(positions: positions)
         }
-        checkWin(positions: positions)
     }
     func combineColumnUp(positions: inout [Int]) {
         for i in 0 ..< 12 {
