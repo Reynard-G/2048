@@ -2,8 +2,8 @@
 2048!!!
 
 # Team Roles
-|        Name      |             Role             |
-| :---------------:| :--------------------------: |
-| Reynard Gunawan  |       Backend Developer      |
-|     Luan Dang    |       Graphics Engineer      |
-|   Michael Choi   |        Graphic Designer      |
+|        Name      |                    Role                    |
+| :---------------:| :----------------------------------------: |
+| Reynard Gunawan  |              Backend Developer             |
+|     Luan Dang    |       Graphics Engineer & Bug Catcher      |
+|   Michael Choi   |               Graphic Designer             |
