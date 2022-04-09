@@ -15,7 +15,7 @@ class InteractionLayer : Layer, KeyDownHandler {
     let renderBlocks = RenderBlocks()
     let displayScore = Score()
     
-    public func generateRandomBlock(positions: inout [Int]) {
+    func generateRandomBlock(positions: inout [Int]) {
         let randNum : Int = Int.random(in: 0 ..< 16)
         let randPercent : Int = Int.random(in: 1 ... 10)
         if positions[randNum] == 0 {
