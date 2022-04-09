@@ -34,59 +34,59 @@ class RenderBlocks : RenderableEntity {
         let Block = Rectangle(rect: rect, fillMode: .fill)
         switch(value) {
         case 2:
-            let Block2Text = Text(location: Point(x: Int(x) + 50, y: Int(y) + 53), text: "2")
+            let Block2Text = Text(location: Point(x: Int(x) + 38, y: Int(y) + 67), text: "2")
             Block2Text.font = "40pt Clear-Sans"
-            canvas.render(FillStyle(color: Color(red: 238, green: 228, blue: 218)), Block, FillStyle(color: Color(red: 119, green: 110, blue: 101)), Block2Text)
+            canvas.render(FillStyle(color: Color(red: 239, green: 229, blue: 218)), Block, FillStyle(color: Color(red: 119, green: 111, blue: 100)), Block2Text)
             break;
         case 4:
-            let Block4Text = Text(location: Point(x: Int(x) + 50, y: Int(y) + 53), text: "4")
+            let Block4Text = Text(location: Point(x: Int(x) + 38, y: Int(y) + 67), text: "4")
             Block4Text.font = "40pt Clear-Sans"
-            canvas.render(FillStyle(color: Color(red: 237, green: 224, blue: 200)), Block, FillStyle(color: Color(red: 119, green: 110, blue: 101)), Block4Text)
+            canvas.render(FillStyle(color: Color(red: 238, green: 225, blue: 201)), Block, FillStyle(color: Color(red: 119, green: 111, blue: 100)), Block4Text)
             break;
         case 8:
-            let Block8Text = Text(location: Point(x: Int(x) + 50, y: Int(y) + 53), text: "8")
+            let Block8Text = Text(location: Point(x: Int(x) + 38, y: Int(y) + 67), text: "8")
             Block8Text.font = "40pt Clear-Sans"
-            canvas.render(FillStyle(color: Color(red: 242, green: 177, blue: 121)), Block, FillStyle(color: Color(red: 119, green: 110, blue: 101)), Block8Text)
+            canvas.render(FillStyle(color: Color(red: 242, green: 179, blue: 122)), Block, FillStyle(color: Color(red: 249, green: 247, blue: 243)), Block8Text)
             break;
         case 16:
-            let Block16Text = Text(location: Point(x: Int(x) + 50, y: Int(y) + 53), text: "16")
+            let Block16Text = Text(location: Point(x: Int(x) + 23, y: Int(y) + 67), text: "16")
             Block16Text.font = "40pt Clear-Sans"
-            canvas.render(FillStyle(color: Color(red: 245, green: 149, blue: 99)), Block, FillStyle(color: Color(red: 119, green: 110, blue: 101)), Block16Text)
+            canvas.render(FillStyle(color: Color(red: 246, green: 151, blue: 101)), Block, FillStyle(color: Color(red: 249, green: 247, blue: 243)), Block16Text)
             break;
         case 32:
-            let Block32Text = Text(location: Point(x: Int(x) + 50, y: Int(y) + 53), text: "32")
+            let Block32Text = Text(location: Point(x: Int(x) + 25, y: Int(y) + 67), text: "32")
             Block32Text.font = "40pt Clear-Sans"
-            canvas.render(FillStyle(color: Color(red: 246, green: 124, blue: 96)), Block, FillStyle(color: Color(red: 119, green: 110, blue: 101)), Block32Text)
+            canvas.render(FillStyle(color: Color(red: 247, green: 125, blue: 94)), Block, FillStyle(color: Color(red: 249, green: 247, blue: 243)), Block32Text)
             break;
         case 64:
-            let Block64Text = Text(location: Point(x: Int(x) + 50, y: Int(y) + 53), text: "64")
+            let Block64Text = Text(location: Point(x: Int(x) + 25, y: Int(y) + 67), text: "64")
             Block64Text.font = "40pt Clear-Sans"
-            canvas.render(FillStyle(color: Color(red: 246, green: 94, blue: 59)), Block, FillStyle(color: Color(red: 119, green: 110, blue: 101)), Block64Text)
+            canvas.render(FillStyle(color: Color(red: 247, green: 95, blue: 59)), Block, FillStyle(color: Color(red: 249, green: 247, blue: 243)), Block64Text)
             break;
         case 128:
-            let Block128Text = Text(location: Point(x: Int(x) + 50, y: Int(y) + 53), text: "128")
+            let Block128Text = Text(location: Point(x: Int(x) + 10, y: Int(y) + 67), text: "128")
             Block128Text.font = "40pt Clear-Sans"
-            canvas.render(FillStyle(color: Color(red: 237, green: 207, blue: 115)), Block, FillStyle(color: Color(red: 119, green: 110, blue: 101)), Block128Text)
+            canvas.render(FillStyle(color: Color(red: 237, green: 208, blue: 115)), Block, FillStyle(color: Color(red: 249, green: 247, blue: 243)), Block128Text)
             break;
         case 256:
-            let Block256Text = Text(location: Point(x: Int(x) + 50, y: Int(y) + 53), text: "256")
+            let Block256Text = Text(location: Point(x: Int(x) + 10, y: Int(y) + 67), text: "256")
             Block256Text.font = "40pt Clear-Sans"
-            canvas.render(FillStyle(color: Color(red: 237, green: 204, blue: 98)), Block, FillStyle(color: Color(red: 119, green: 110, blue: 101)), Block256Text)
+            canvas.render(FillStyle(color: Color(red: 236, green: 204, blue: 97)), Block, FillStyle(color: Color(red: 249, green: 247, blue: 243)), Block256Text)
             break;
         case 512:
-            let Block512Text = Text(location: Point(x: Int(x) + 50, y: Int(y) + 53), text: "512")
+            let Block512Text = Text(location: Point(x: Int(x) + 10, y: Int(y) + 67), text: "512")
             Block512Text.font = "40pt Clear-Sans"
-            canvas.render(FillStyle(color: Color(red: 237, green: 200, blue: 80)), Block, FillStyle(color: Color(red: 119, green: 110, blue: 101)), Block512Text)
+            canvas.render(FillStyle(color: Color(red: 237, green: 199, blue: 81)), Block, FillStyle(color: Color(red: 249, green: 247, blue: 243)), Block512Text)
             break;
         case 1024:
-            let Block1024Text = Text(location: Point(x: Int(x) + 50, y: Int(y) + 53), text: "1028")
-            Block1024Text.font = "40pt Clear-Sans"
-            canvas.render(FillStyle(color: Color(red: 237, green: 197, blue: 63)), Block, FillStyle(color: Color(red: 119, green: 110, blue: 101)), Block1024Text)
+            let Block1024Text = Text(location: Point(x: Int(x) + 10, y: Int(y) + 65), text: "1028")
+            Block1024Text.font = "30pt Clear-Sans"
+            canvas.render(FillStyle(color: Color(red: 237, green: 197, blue: 63)), Block, FillStyle(color: Color(red: 249, green: 247, blue: 243)), Block1024Text)
             break;
         case 2048:
-            let Block2048Text = Text(location: Point(x: Int(x) + 50, y: Int(y) + 53), text: "2048")
-            Block2048Text.font = "40pt Clear-Sans"
-            canvas.render(FillStyle(color: Color(red: 237, green: 194, blue: 45)), Block, FillStyle(color: Color(red: 119, green: 110, blue: 101)), Block2048Text)
+            let Block2048Text = Text(location: Point(x: Int(x) + 11, y: Int(y) + 65), text: "2048")
+            Block2048Text.font = "30pt Clear-Sans"
+            canvas.render(FillStyle(color: Color(red: 236, green: 195, blue: 49)), Block, FillStyle(color: Color(red: 249, green: 247, blue: 243)), Block2048Text)
             break;
         default:
             print("They went over 2048???")

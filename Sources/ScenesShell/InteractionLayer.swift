@@ -252,7 +252,7 @@ class InteractionLayer : Layer, KeyDownHandler {
         // We insert our RenderableEntities in the constructor
         insert(entity: renderBlocks, at: .front)
         insert(entity: displayScore, at: .front)
-        let resetButton = Button(name: "resetButton", labelString: "New Game", topLeft: Point(x: 725, y: 225),
+        let resetButton = Button(name: "resetButton", labelString: "New Game", topLeft: Point(x: 724, y: 220), fixedSize: Size(width: 120, height: 30),
                                  controlStyle: ControlStyle(foregroundStrokeStyle: StrokeStyle(color: Color(red: 251, green: 249, blue: 239)),
                                                             backgroundFillStyle: FillStyle(color: Color(red: 143, green: 122, blue: 102)),
                                                             backgroundHoverFillStyle: FillStyle(color: Color(red: 143, green: 122, blue: 102)),

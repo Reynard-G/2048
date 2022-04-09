@@ -11,7 +11,7 @@ class Background : RenderableEntity {
         var currentRect = square
         let bigBoiSquare = Rectangle(rect: biggerSquare, fillMode: .fill)
         var Square = Rectangle(rect: square, fillMode: .fill)
-        canvas.render(FillStyle(color: Color(red: 186, green: 173, blue: 161)), bigBoiSquare)
+        canvas.render(FillStyle(color: Color(red: 187, green: 172, blue: 161)), bigBoiSquare)
         for _ in 0 ..< 4 {
             for _ in 0 ..< 4 {
                 Square = Rectangle(rect: currentRect, fillMode: .fill)
