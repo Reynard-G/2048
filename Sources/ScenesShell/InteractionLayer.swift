@@ -1,5 +1,6 @@
 import Scenes
 import Igis
+import ScenesControls
 import Foundation
 
   /*
@@ -13,9 +14,8 @@ public var score : Int = 0
 class InteractionLayer : Layer, KeyDownHandler {
     let renderBlocks = RenderBlocks()
     let displayScore = Score()
-    let resetButton = Button()
     
-    func generateRandomBlock(positions: inout [Int]) {
+    public func generateRandomBlock(positions: inout [Int]) {
         let randNum : Int = Int.random(in: 0 ..< 16)
         let randPercent : Int = Int.random(in: 1 ... 10)
         if positions[randNum] == 0 {
@@ -234,6 +234,17 @@ class InteractionLayer : Layer, KeyDownHandler {
             }
         }
     }
+    func resetbutton() -> ResetButton {
+        guard let mainScene = scene as? MainScene else {
+            fatalError("mainScene of type MainScene is required")
+        }
+        let backgroundLayer = mainScene.backgroundLayer
+        let ResetButton = backgroundLayer.resetButton
+        return ResetButton
+    }
+    func resetButtonClickHandler(control: Control, localLocation: Point) {
+        resetbutton().pressedButton()
+    }
     init() {
         // Using a meaningful name can be helpful for debugging
         super.init(name:"Interaction")
@@ -241,6 +252,12 @@ class InteractionLayer : Layer, KeyDownHandler {
         // We insert our RenderableEntities in the constructor
         insert(entity: renderBlocks, at: .front)
         insert(entity: displayScore, at: .front)
+        let resetButton = Button(name: "resetButton", labelString: "New Game", topLeft: Point(x: 725, y: 225),
+                                 controlStyle: ControlStyle(foregroundStrokeStyle: StrokeStyle(color: Color(red: 251, green: 249, blue: 239)),
+                                                            backgroundFillStyle: FillStyle(color: Color(red: 143, green: 122, blue: 102)),
+                                                            backgroundHoverFillStyle: FillStyle(color: Color(red: 143, green: 122, blue: 102)),
+                                                            roundingPercentage: 0.0))
+        resetButton.clickHandler = resetButtonClickHandler
         insert(entity: resetButton, at: .front)
         if positions.allSatisfy({$0 == 0}) { // If all of elements of positions is 0, continue
             generateRandomBlock(positions: &positions)

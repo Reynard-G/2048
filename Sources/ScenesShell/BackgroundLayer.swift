@@ -7,7 +7,8 @@ import Scenes
 
 
 class BackgroundLayer : Layer {
-      let background = Background()
+    let background = Background()
+    let resetButton = ResetButton()
 
       init() {
           // Using a meaningful name can be helpful for debugging
@@ -15,5 +16,6 @@ class BackgroundLayer : Layer {
 
           // We insert our RenderableEntities in the constructor
           insert(entity:background, at:.back)
+          insert(entity:resetButton, at:.back)
       }
   }
