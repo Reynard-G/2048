@@ -148,9 +148,9 @@ class RenderBlocks : RenderableEntity {
             let bigBoiSqr = Rect(topLeft: Point(x: canvasSize.center.x - 225, y: canvasSize.center.y - 225), size: Size(width: 450, height: 450))
             let Sqr = Rect(topLeft: Point(x: canvasSize.center.x - 215, y: canvasSize.center.y - 215), size: Size(width: 100, height: 100))
             clearCanvas(canvas: canvas)
-            let Board = Background()
-            Board.background(canvas: canvas)
-            Board.board(canvas: canvas, canvasSize: canvasSize, biggerSquare: bigBoiSqr, square: Sqr)
+            Background().background(canvas: canvas)
+            Background().board(canvas: canvas, canvasSize: canvasSize, biggerSquare: bigBoiSqr, square: Sqr)
+            Score().renderScore(canvas: canvas, score: score)
             renderLayout(canvas: canvas)
         }
     }
