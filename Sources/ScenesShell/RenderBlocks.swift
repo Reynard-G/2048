@@ -147,18 +147,8 @@ class RenderBlocks : RenderableEntity {
     }
     override func render(canvas: Canvas) {
         if let canvasSize = canvas.canvasSize {
-//            var isBackgroundPlaying = false
-//            guard let doodoodoodoo = URL(string: "https://drive.google.com/file/d/1MT60CgtGcDxDR4l_wb23p1sHABf_OdnF/view?usp=sharing") else {
-//                fatalError("doodoo failed")
-//            }
-//            let background = Audio(sourceURL: doodoodoodoo, shouldLoop:true)
             let bigBoiSqr = Rect(topLeft: Point(x: canvasSize.center.x - 225, y: canvasSize.center.y - 225), size: Size(width: 450, height: 450))
             let Sqr = Rect(topLeft: Point(x: canvasSize.center.x - 215, y: canvasSize.center.y - 215), size: Size(width: 100, height: 100))
-//            if (isBackgroundPlaying == false) && background.isReady {
-//                print("qwertiop")
-//                canvas.render(background)
-//                isBackgroundPlaying = true
-//           }
             clearCanvas(canvas: canvas)
             Background().background(canvas: canvas)
             Background().board(canvas: canvas, canvasSize: canvasSize, biggerSquare: bigBoiSqr, square: Sqr)

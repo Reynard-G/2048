@@ -34,10 +34,7 @@ class Background : RenderableEntity {
     }
     init() {
         // Using a meaningful name can be helpful for debugging
-        /*guard let doodooURL = URL(string: "https://commondatastorage.googleapis.com/codeskulptor-assets/Epoq-Lepidoptera.ogg") else {
-            fatalError("Failed to create URL for doodoo")
-        }*/
-        doodoo = Audio(sourceURL: URL(string: "https://codermerlin.com/users/reynard-gunawan/dreamrunning_trim-1.mp3")!, shouldLoop: true)
+        doodoo = Audio(sourceURL: URL(string: "https://codermerlin.com/users/reynard-gunawan/Dream%20Speedrun%20Music.mp3")!, shouldLoop: true)
         super.init(name:"Background")
     }
     override func setup(canvasSize: Size, canvas: Canvas) {
