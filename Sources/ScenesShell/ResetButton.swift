@@ -1,11 +1,6 @@
 import Scenes
 import Igis
 
-  /*
-           This class is responsible for rendering the background.
-   */
-
-
 class ResetButton : RenderableEntity {
     let interaction = InteractionLayer()
 
