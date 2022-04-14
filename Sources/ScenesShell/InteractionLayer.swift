@@ -14,8 +14,8 @@ public var score : Int = 0
 class InteractionLayer : Layer, KeyDownHandler {
     let renderBlocks = RenderBlocks()
     let displayScore = Score()
-    
-    public func generateRandomBlock(positions: inout [Int]) {
+
+    func generateRandomBlock(positions: inout [Int]) {
         let randNum : Int = Int.random(in: 0 ..< 16)
         let randPercent : Int = Int.random(in: 1 ... 10)
         if positions[randNum] == 0 {
@@ -254,27 +254,20 @@ class InteractionLayer : Layer, KeyDownHandler {
         super.init(name:"Interaction")
 
         // We insert our RenderableEntities in the constructor
-        insert(entity: renderBlocks, at: .back)
-        let resetButton = Button(name: "resetButton", labelString: "New Game", topLeft: Point(x: 724, y: 220), fixedSize: Size(width: 120, height: 30),
-                                 controlStyle: ControlStyle(foregroundStrokeStyle: StrokeStyle(color: Color(red: 251, green: 249, blue: 239)),
-                                                            backgroundFillStyle: FillStyle(color: Color(red: 143, green: 122, blue: 102)),
-                                                            backgroundHoverFillStyle: FillStyle(color: Color(red: 143, green: 122, blue: 102)),
-                                                            roundingPercentage: 0.0))
-        resetButton.clickHandler = resetButtonClickHandler
-        insert(entity: resetButton, at: .front)
+        insert(entity: renderBlocks, at: .front)
         if positions.allSatisfy({$0 == 0}) { // If all of elements of positions is 0, continue
             generateRandomBlock(positions: &positions)
             generateRandomBlock(positions: &positions)
         }
     }
     override func preSetup(canvasSize: Size, canvas: Canvas) {
-       /* let resetButton = Button(name: "resetButton", labelString: "New Game", topLeft: Point(x: canvasSize.center.x - 225, y: canvasSize.center.y - 257), fixedSize: Size(width: 120, height: 30),
+        let resetButton = Button(name: "resetButton", labelString: "New Game", topLeft: Point(x: canvasSize.center.x - 225, y: canvasSize.center.y - 257), fixedSize: Size(width: 120, height: 30),
                                  controlStyle: ControlStyle(foregroundStrokeStyle: StrokeStyle(color: Color(red: 251, green: 249, blue: 239)),
                                                             backgroundFillStyle: FillStyle(color: Color(red: 143, green: 122, blue: 102)),
                                                             backgroundHoverFillStyle: FillStyle(color: Color(red: 143, green: 122, blue: 102)),
                                                             roundingPercentage: 0.0))
         resetButton.clickHandler = resetButtonClickHandler
-        insert(entity: resetButton, at: .front)*/
+        insert(entity: resetButton, at: .front)
         dispatcher.registerKeyDownHandler(handler: self)
     }
     override func postTeardown() {
