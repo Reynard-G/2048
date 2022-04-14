@@ -2,11 +2,6 @@ import Scenes
 import Igis
 import Foundation
 
-  /*
-           This class is responsible for rendering the background.
-   */
-
-
 class RenderBlocks : RenderableEntity {
     func clearCanvas(canvas:Canvas) {
         if let canvasSize = canvas.canvasSize {

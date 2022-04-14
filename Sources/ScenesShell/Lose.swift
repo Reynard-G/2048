@@ -1,11 +1,6 @@
 import Scenes
 import Igis
 
-  /*
-           This class is responsible for rendering the background.
-   */
-
-
 class Lose : RenderableEntity {
     func loseBackground(canvas: Canvas) {
         if let canvasSize = canvas.canvasSize {
