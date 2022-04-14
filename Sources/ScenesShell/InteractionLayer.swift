@@ -153,7 +153,7 @@ class InteractionLayer : Layer, KeyDownHandler {
     func checkWin(positions: [Int]) {
         for i in  0 ..< 16 {
             if positions[i] == 2048 {
-                // Add a "You Win" sign here
+                insert(entity: Win(), at: .front)
                 dispatcher.unregisterKeyDownHandler(handler: self)
             }
         }

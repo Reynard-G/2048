@@ -1,11 +1,6 @@
 import Scenes
 import Igis
 
-  /*
-           This class is responsible for rendering the background.
-   */
-
-
 class Win : RenderableEntity {
     func winBackground(canvas: Canvas) {
         if let canvasSize = canvas.canvasSize {
