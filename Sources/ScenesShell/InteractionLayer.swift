@@ -14,6 +14,9 @@ public var score : Int = 0
 class InteractionLayer : Layer, KeyDownHandler {
     let renderBlocks = RenderBlocks()
     let displayScore = Score()
+    let displayLose = Lose()
+    let displayWin = Win()
+    let clearAlpha = resetAlpha()
 
     func generateRandomBlock(positions: inout [Int]) {
         let randNum : Int = Int.random(in: 0 ..< 16)
@@ -153,7 +156,7 @@ class InteractionLayer : Layer, KeyDownHandler {
     func checkWin(positions: [Int]) {
         for i in  0 ..< 16 {
             if positions[i] == 2048 {
-                insert(entity: Win(), at: .front)
+                insert(entity: displayWin, at: .front)
                 dispatcher.unregisterKeyDownHandler(handler: self)
             }
         }
@@ -195,7 +198,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             }
         }
         if gameOver == true && availableSpace == 0 {
-            insert(entity: Lose(), at: .front)
+            insert(entity: displayLose, at: .front)
             dispatcher.unregisterKeyDownHandler(handler: self)
         }
     }
@@ -247,6 +250,10 @@ class InteractionLayer : Layer, KeyDownHandler {
         return ResetButton
     }
     func resetButtonClickHandler(control: Control, localLocation: Point) {
+        remove(entity: displayLose)
+        remove(entity: displayWin)
+        insert(entity: clearAlpha, at: .front)
+        dispatcher.registerKeyDownHandler(handler: self)
         resetbutton().pressedButton()
     }
     init() {
@@ -269,6 +276,10 @@ class InteractionLayer : Layer, KeyDownHandler {
         resetButton.clickHandler = resetButtonClickHandler
         insert(entity: resetButton, at: .front)
         dispatcher.registerKeyDownHandler(handler: self)
+    }
+    override func postSetup(canvasSize: Size, canvas: Canvas) {
+        checkWin(positions: positions)
+        checkLose(positions: positions)
     }
     override func postTeardown() {
         dispatcher.unregisterKeyDownHandler(handler: self)
