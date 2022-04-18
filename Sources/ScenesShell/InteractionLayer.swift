@@ -12,8 +12,7 @@ public var positions : [Int] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 public var score : Int = 0
 
 class InteractionLayer : Layer, KeyDownHandler {
-    let renderBlocks = RenderBlocks()
-    let displayScore = Score()
+    let renderAll = Render()
     let displayLose = Lose()
     let displayWin = Win()
     let clearAlpha = resetAlpha()    
@@ -261,7 +260,7 @@ class InteractionLayer : Layer, KeyDownHandler {
         super.init(name:"Interaction")
 
         // We insert our RenderableEntities in the constructor
-        insert(entity: renderBlocks, at: .front)
+        insert(entity: renderAll, at: .front)
         if positions.allSatisfy({$0 == 0}) { // If all of elements of positions is 0, continue
             generateRandomBlock(positions: &positions)
             generateRandomBlock(positions: &positions)

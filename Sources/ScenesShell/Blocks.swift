@@ -2,7 +2,7 @@ import Scenes
 import Igis
 import Foundation
 
-class RenderBlocks : RenderableEntity {
+class Blocks : RenderableEntity {
     func clearCanvas(canvas:Canvas) {
         if let canvasSize = canvas.canvasSize {
             let canvasRect = Rect(topLeft:Point(), size:canvasSize)
@@ -25,7 +25,7 @@ class RenderBlocks : RenderableEntity {
         }
         return 0.0 // Will never reach this unless "coord" is not "x" or "y", which will be a mistake.
     }
-    func Blocks(canvas: Canvas, value: Int, x: Double, y: Double) {
+    func renderBlock(canvas: Canvas, value: Int, x: Double, y: Double) {
         let rect = Rect(topLeft: Point(x: Int(x), y: Int(y)), size: Size(width: 100, height: 100))
         let Block = Rectangle(rect: rect, fillMode: .fill)
         switch(value) {
@@ -97,37 +97,37 @@ class RenderBlocks : RenderableEntity {
                 // Leave this alone
                 break;
             case 2:
-                Blocks(canvas: canvas, value: 2, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
+                renderBlock(canvas: canvas, value: 2, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
                 break;
             case 4:
-                Blocks(canvas: canvas, value: 4, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
+                renderBlock(canvas: canvas, value: 4, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
                 break;
             case 8:
-                Blocks(canvas: canvas, value: 8, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
+                renderBlock(canvas: canvas, value: 8, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
                 break;
             case 16:
-                Blocks(canvas: canvas, value: 16, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
+                renderBlock(canvas: canvas, value: 16, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
                 break;
             case 32:
-                Blocks(canvas: canvas, value: 32, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
+                renderBlock(canvas: canvas, value: 32, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
                 break;
             case 64:
-                Blocks(canvas: canvas, value: 64, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
+                renderBlock(canvas: canvas, value: 64, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
                 break;
             case 128:
-                Blocks(canvas: canvas, value: 128, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
+                renderBlock(canvas: canvas, value: 128, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
                 break;
             case 256:
-                Blocks(canvas: canvas, value: 256, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
+                renderBlock(canvas: canvas, value: 256, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
                 break;
             case 512:
-                Blocks(canvas: canvas, value: 512, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
+                renderBlock(canvas: canvas, value: 512, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
                 break;
             case 1024:
-                Blocks(canvas: canvas, value: 1024, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
+                renderBlock(canvas: canvas, value: 1024, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
                 break;
             case 2048:
-                Blocks(canvas: canvas, value: 2048, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
+                renderBlock(canvas: canvas, value: 2048, x: getCoords(canvas: canvas, coord: "x", index: Double(i)), y: getCoords(canvas: canvas, coord: "y", index: Double(i)))
                 break;
             default:
                 print("This was not suppose to happen...")
@@ -137,18 +137,7 @@ class RenderBlocks : RenderableEntity {
     init() {
         
         // Using a meaningful name can be helpful for debugging
-        super.init(name:"RenderBlocks")
+        super.init(name:"Blocks")
         
-    }
-    override func render(canvas: Canvas) {
-        if let canvasSize = canvas.canvasSize {
-            let bigBoiSqr = Rect(topLeft: Point(x: canvasSize.center.x - 225, y: canvasSize.center.y - 225), size: Size(width: 450, height: 450))
-            let Sqr = Rect(topLeft: Point(x: canvasSize.center.x - 215, y: canvasSize.center.y - 215), size: Size(width: 100, height: 100))
-            clearCanvas(canvas: canvas)
-            Background().background(canvas: canvas)
-            Background().board(canvas: canvas, canvasSize: canvasSize, biggerSquare: bigBoiSqr, square: Sqr)
-            Score().renderScore(canvas: canvas, score: score)
-            renderLayout(canvas: canvas)
-        }
     }
 }
