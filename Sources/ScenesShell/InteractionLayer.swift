@@ -253,6 +253,7 @@ class InteractionLayer : Layer, KeyDownHandler {
         remove(entity: displayLose)
         remove(entity: displayWin)
         insert(entity: clearAlpha, at: .front)
+        dispatcher.unregisterKeyDownHandler(handler: self) // Unregister KeyDownHandler if it's already registered
         dispatcher.registerKeyDownHandler(handler: self)
         resetbutton().pressedButton()
     }
