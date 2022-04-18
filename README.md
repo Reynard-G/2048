@@ -3,7 +3,7 @@
 
 # Team Roles
 |        Name      |                    Role                    |
-| :---------------:| :----------------------------------------: |
+|:----------------:|:------------------------------------------:|
 | Reynard Gunawan  |              Backend Developer             |
 |     Luan Dang    |       Graphics Engineer & Bug Catcher      |
-|   Michael Choi   |               Graphic Designer             |
+|   Michael Choi   |             Graphics Designer              |
