@@ -16,7 +16,7 @@ class InteractionLayer : Layer, KeyDownHandler {
     let displayScore = Score()
     let displayLose = Lose()
     let displayWin = Win()
-    let clearAlpha = resetAlpha()
+    let clearAlpha = resetAlpha()    
 
     func generateRandomBlock(positions: inout [Int]) {
         let randNum : Int = Int.random(in: 0 ..< 16)
@@ -199,7 +199,6 @@ class InteractionLayer : Layer, KeyDownHandler {
         }
         if gameOver == true && availableSpace == 0 {
             insert(entity: displayLose, at: .front)
-            dispatcher.unregisterKeyDownHandler(handler: self)
         }
     }
     func onKeyDown(key:String, code:String, ctrlKey:Bool, shiftKey:Bool, altKey:Bool, metaKey:Bool) {
