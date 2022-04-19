@@ -13,7 +13,8 @@ public var score : Int = 0
 
 class InteractionLayer : Layer, KeyDownHandler {
     let renderAll = Render()
-    let displayLose = Lose()
+    let displayLoseBackground = LoseBackground()
+    let displayLoseText = LoseText()
     let displayWin = Win()
     let clearAlpha = resetAlpha()    
 
@@ -197,7 +198,8 @@ class InteractionLayer : Layer, KeyDownHandler {
             }
         }
         if gameOver == true && availableSpace == 0 {
-            insert(entity: displayLose, at: .front)
+            insert(entity: displayLoseBackground, at: .front)
+            insert(entity: displayLoseText, at: .front)
         }
     }
     func onKeyDown(key:String, code:String, ctrlKey:Bool, shiftKey:Bool, altKey:Bool, metaKey:Bool) {
@@ -248,7 +250,8 @@ class InteractionLayer : Layer, KeyDownHandler {
         return ResetButton
     }
     func resetButtonClickHandler(control: Control, localLocation: Point) {
-        remove(entity: displayLose)
+        remove(entity: displayLoseBackground)
+        remove(entity: displayLoseText)
         remove(entity: displayWin)
         insert(entity: clearAlpha, at: .front)
         dispatcher.unregisterKeyDownHandler(handler: self) // Unregister KeyDownHandler if it's already registered
