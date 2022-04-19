@@ -15,7 +15,8 @@ class InteractionLayer : Layer, KeyDownHandler {
     let renderAll = Render()
     let displayLoseBackground = LoseBackground()
     let displayLoseText = LoseText()
-    let displayWin = Win()
+    let displayWinBackground = WinBackground()
+    let displayWinText = WinText()
     let clearAlpha = resetAlpha()    
 
     func generateRandomBlock(positions: inout [Int]) {
@@ -156,7 +157,8 @@ class InteractionLayer : Layer, KeyDownHandler {
     func checkWin(positions: [Int]) {
         for i in  0 ..< 16 {
             if positions[i] == 2048 {
-                insert(entity: displayWin, at: .front)
+                insert(entity: displayWinBackground, at: .front)
+                insert(entity: displayWinText, at: .front)
                 dispatcher.unregisterKeyDownHandler(handler: self)
             }
         }
@@ -252,7 +254,8 @@ class InteractionLayer : Layer, KeyDownHandler {
     func resetButtonClickHandler(control: Control, localLocation: Point) {
         remove(entity: displayLoseBackground)
         remove(entity: displayLoseText)
-        remove(entity: displayWin)
+        remove(entity: displayWinBackground)
+        remove(entity: displayWinText)
         insert(entity: clearAlpha, at: .front)
         dispatcher.unregisterKeyDownHandler(handler: self) // Unregister KeyDownHandler if it's already registered
         dispatcher.registerKeyDownHandler(handler: self)
