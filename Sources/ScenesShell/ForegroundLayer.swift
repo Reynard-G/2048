@@ -13,6 +13,5 @@ class ForegroundLayer : Layer {
           super.init(name:"Foreground")
 
           // We insert our RenderableEntities in the constructor
-
       }
   }

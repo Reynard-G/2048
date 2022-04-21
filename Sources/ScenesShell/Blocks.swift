@@ -3,6 +3,7 @@ import Igis
 import Foundation
 
 class Blocks : RenderableEntity {
+
     func clearCanvas(canvas:Canvas) {
         if let canvasSize = canvas.canvasSize {
             let canvasRect = Rect(topLeft:Point(), size:canvasSize)
@@ -28,6 +29,7 @@ class Blocks : RenderableEntity {
     func renderBlock(canvas: Canvas, value: Int, x: Double, y: Double) {
         let rect = Rect(topLeft: Point(x: Int(x), y: Int(y)), size: Size(width: 100, height: 100))
         let Block = Rectangle(rect: rect, fillMode: .fill)
+
         switch(value) {
         case 2:
             let Block2Text = Text(location: Point(x: Int(x) + 50, y: Int(y) + 67), text: "2")
@@ -135,7 +137,6 @@ class Blocks : RenderableEntity {
         }
     }
     init() {
-        
         // Using a meaningful name can be helpful for debugging
         super.init(name:"Blocks")
         
