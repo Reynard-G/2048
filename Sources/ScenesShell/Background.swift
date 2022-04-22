@@ -38,6 +38,9 @@ class Background : RenderableEntity {
         doodoo = Audio(sourceURL: URL(string: "https://codermerlin.com/users/reynard-gunawan/Dream%20Speedrun%20Music.mp3")!, shouldLoop: true)
         super.init(name:"Background")
     }
+    override func setup(canvasSize: Size, canvas: Canvas) {
+        canvas.setup(doodoo)
+    }
     override func render(canvas: Canvas) {
         if (isBackgroundPlaying == false) && doodoo.isReady == true {
             canvas.render(doodoo)
