@@ -212,6 +212,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             moveUp(positions: &positions)
             let currPos = positions
             if prevPos != currPos {
+                
                 generateRandomBlock(positions: &positions)
             }
         } else if key == "a" || code == "ArrowLeft" {
@@ -251,6 +252,14 @@ class InteractionLayer : Layer, KeyDownHandler {
         let ResetButton = backgroundLayer.resetButton
         return ResetButton
     }
+    func undobutton() -> UndoButton {
+        guard let mainScene = scene as? MainScene else {
+            fatalError("mainScene of type MainScene is required")
+        }
+        let backgroundLayer = mainScene.backgroundLayer
+        let UndoButton = backgroundLayer.undoButton
+        return UndoButton
+    }
     func resetButtonClickHandler(control: Control, localLocation: Point) {
         remove(entity: displayLoseBackground)
         remove(entity: displayLoseText)
@@ -260,6 +269,16 @@ class InteractionLayer : Layer, KeyDownHandler {
         dispatcher.unregisterKeyDownHandler(handler: self) // Unregister KeyDownHandler if it's already registered
         dispatcher.registerKeyDownHandler(handler: self)
         resetbutton().pressedButton()
+    }
+    func undoButtonClickHandler(control: Control, localLocation: Point) {
+        remove(entity: displayLoseBackground)
+        remove(entity: displayLoseText)
+        remove(entity: displayWinBackground)
+        remove(entity: displayWinText)
+        insert(entity: clearAlpha, at: .front)
+        dispatcher.unregisterKeyDownHandler(handler: self) // Unregister KeyDownHandler if it's already registered
+        dispatcher.registerKeyDownHandler(handler: self)
+        undobutton().pressedButton()
     }
     init() {
         // Using a meaningful name can be helpful for debugging
@@ -280,6 +299,13 @@ class InteractionLayer : Layer, KeyDownHandler {
                                                             roundingPercentage: 0.0))
         resetButton.clickHandler = resetButtonClickHandler
         insert(entity: resetButton, at: .front)
+        let undoButton = Button(name: "undoButton", labelString: "Undo", topLeft: Point(x: canvasSize.center.x - 100, y: canvasSize.center.y - 257), fixedSize: Size(width: 60, height: 30),
+                                controlStyle: ControlStyle(foregroundStrokeStyle: StrokeStyle(color: Color(red: 251, green: 249, blue: 239)),
+                                                           backgroundFillStyle: FillStyle(color: Color(red: 143, green: 122, blue: 102)),
+                                                           backgroundHoverFillStyle: FillStyle(color: Color(red: 143, green: 122, blue: 102)),
+                                                           roundingPercentage: 0.0))
+        undoButton.clickHandler = undoButtonClickHandler
+        insert(entity: undoButton, at: .front)
         dispatcher.registerKeyDownHandler(handler: self)
     }
     override func postSetup(canvasSize: Size, canvas: Canvas) {

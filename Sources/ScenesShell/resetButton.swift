@@ -12,6 +12,6 @@ class ResetButton : RenderableEntity {
     }
     init() {
         // Using a meaningful name can be helpful for debugging
-        super.init(name:"Button")
+        super.init(name:"ResetButton")
     }
 }
