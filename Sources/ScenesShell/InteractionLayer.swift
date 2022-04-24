@@ -299,7 +299,7 @@ class InteractionLayer : Layer, KeyDownHandler {
                                                             roundingPercentage: 0.0))
         resetButton.clickHandler = resetButtonClickHandler
         insert(entity: resetButton, at: .front)
-        let undoButton = Button(name: "undoButton", labelString: "Undo", topLeft: Point(x: canvasSize.center.x - 100, y: canvasSize.center.y - 257), fixedSize: Size(width: 60, height: 30),
+        let undoButton = Button(name: "undoButton", labelString: "Undo", topLeft: Point(x: canvasSize.center.x - 103, y: canvasSize.center.y - 257), fixedSize: Size(width: 60, height: 30),
                                 controlStyle: ControlStyle(foregroundStrokeStyle: StrokeStyle(color: Color(red: 251, green: 249, blue: 239)),
                                                            backgroundFillStyle: FillStyle(color: Color(red: 143, green: 122, blue: 102)),
                                                            backgroundHoverFillStyle: FillStyle(color: Color(red: 143, green: 122, blue: 102)),

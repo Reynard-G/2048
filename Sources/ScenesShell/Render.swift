@@ -14,7 +14,6 @@ class Render : RenderableEntity {
             Background().board(canvas: canvas, canvasSize: canvasSize, biggerSquare: bigBoiSqr, square: Sqr)
             Score().renderScore(canvas: canvas, score: score)
             Blocks().renderLayout(canvas: canvas)
-            TickRate().render(canvas: canvas)
         }
     }
 }
