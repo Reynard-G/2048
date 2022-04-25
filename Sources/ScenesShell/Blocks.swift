@@ -12,6 +12,7 @@ class Blocks : RenderableEntity {
         }
     }
     func getCoords(canvas: Canvas, coord: String, index: Double) -> Double {
+        // Convert the index f the array to canvas coordinates
         if let canvasSize = canvas.canvasSize {
             if coord == "x" {
                 let column = index.truncatingRemainder(dividingBy: 4.0)
@@ -27,6 +28,7 @@ class Blocks : RenderableEntity {
         return 0.0 // Will never reach this unless "coord" is not "x" or "y", which will be a mistake.
     }
     func renderBlock(canvas: Canvas, value: Int, x: Double, y: Double) {
+        // "Database" of blocks that will be rendered
         let rect = Rect(topLeft: Point(x: Int(x), y: Int(y)), size: Size(width: 100, height: 100))
         let Block = Rectangle(rect: rect, fillMode: .fill)
 

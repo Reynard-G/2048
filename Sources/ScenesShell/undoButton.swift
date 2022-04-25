@@ -14,6 +14,5 @@ class UndoButton : RenderableEntity {
     init() {
         // Using a meaningful name can be helpful for debugging
         super.init(name:"UndoButton")
-        setAlpha(alpha: Alpha(alphaValue: 0.6))
     }
 }

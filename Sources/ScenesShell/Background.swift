@@ -12,6 +12,7 @@ class Background : RenderableEntity {
     var isBackgroundPlaying = false
     
     func board(canvas: Canvas, canvasSize: Size, biggerSquare: Rect, square: Rect) {
+        // Setup 4x4 Board
         var currentRect = square
         let bigBoiSquare = Rectangle(rect: biggerSquare, fillMode: .fill)
         var Square = Rectangle(rect: square, fillMode: .fill)
@@ -27,6 +28,7 @@ class Background : RenderableEntity {
         }
     }
     func background(canvas: Canvas) {
+        // Peach Background
         if let canvasSize = canvas.canvasSize {
             let canvasRect = Rect(topLeft: Point(), size: canvasSize)
             let canvasRectangle = Rectangle(rect: canvasRect, fillMode: .fill)
@@ -34,7 +36,7 @@ class Background : RenderableEntity {
         }
     }
     init() {
-        // Using a meaningful name can be helpful for debugging
+        // Dream Speedrun Music
         doodoo = Audio(sourceURL: URL(string: "https://codermerlin.com/users/reynard-gunawan/Dream%20Speedrun%20Music.mp3")!, shouldLoop: true)
         super.init(name:"Background")
     }
