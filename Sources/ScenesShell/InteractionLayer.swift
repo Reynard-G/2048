@@ -17,7 +17,9 @@ class InteractionLayer : Layer, KeyDownHandler {
     let displayLoseText = LoseText()
     let displayWinBackground = WinBackground()
     let displayWinText = WinText()
-    let clearAlpha = resetAlpha()    
+    let clearAlpha = resetAlpha()
+    var prevPos : [Int] = []
+    var prevScr : Int = 0
 
     func generateRandomBlock(positions: inout [Int]) {
         let randNum : Int = Int.random(in: 0 ..< 16)
@@ -206,40 +208,51 @@ class InteractionLayer : Layer, KeyDownHandler {
     }
     func onKeyDown(key:String, code:String, ctrlKey:Bool, shiftKey:Bool, altKey:Bool, metaKey:Bool) {
         if key == "w" || code == "ArrowUp" {
-            let prevPos = positions
+            prevPos = positions
+            prevScr = score
             moveUp(positions: &positions) // Check if it will be the same positions
             combineColumnUp(positions: &positions)
             moveUp(positions: &positions)
             let currPos = positions
             if prevPos != currPos {
-                
+                undobutton().prevPosition = prevPos
+                undobutton().prevScore = prevScr
                 generateRandomBlock(positions: &positions)
             }
         } else if key == "a" || code == "ArrowLeft" {
-            let prevPos = positions
+            prevPos = positions
+            prevScr = score
             moveLeft(positions: &positions) // Check if it will be the same positions
             combineRowLeft(positions: &positions)
             moveLeft(positions: &positions)
             let currPos = positions
             if prevPos != currPos {
+                undobutton().prevPosition = prevPos
+                undobutton().prevScore = prevScr
                 generateRandomBlock(positions: &positions)
             }
         } else if key == "s" || code == "ArrowDown" {
-            let prevPos = positions
+            prevPos = positions
+            prevScr = score
             moveDown(positions: &positions) // Check if it will be the same positions
             combineColumnDown(positions: &positions)
             moveDown(positions: &positions)
             let currPos = positions
             if prevPos != currPos {
+                undobutton().prevPosition = prevPos
+                undobutton().prevScore = prevScr
                 generateRandomBlock(positions: &positions)
             }
         } else if key == "d" || code == "ArrowRight" {
-            let prevPos = positions
+            prevPos = positions
+            prevScr = score
             moveRight(positions: &positions) // Check if it will be the same positions
             combineRowRight(positions: &positions)
             moveRight(positions: &positions)
             let currPos = positions
             if prevPos != currPos {
+                undobutton().prevPosition = prevPos
+                undobutton().prevScore = prevScr
                 generateRandomBlock(positions: &positions)
             }
         }
