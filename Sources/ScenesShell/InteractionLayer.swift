@@ -1,3 +1,4 @@
+
 import Scenes
 import Igis
 import ScenesControls
@@ -298,7 +299,7 @@ class InteractionLayer : Layer, KeyDownHandler {
         super.init(name:"Interaction")
 
         // We insert our RenderableEntities in the constructor
-        insert(entity: renderAll, at: .front)
+        insert(entity: renderAll, at: .back)
         if positions.allSatisfy({$0 == 0}) { // If all of elements of positions is 0, continue
             generateRandomBlock(positions: &positions)
             generateRandomBlock(positions: &positions)
