@@ -23,18 +23,22 @@ class InteractionLayer : Layer, KeyDownHandler {
     var prevScr : Int = 0
 
     func generateRandomBlock(positions: inout [Int]) {
-        let randNum : Int = Int.random(in: 0 ..< 16)
+        var availableSlots : [Int] = []
         let randPercent : Int = Int.random(in: 1 ... 10)
-        if positions[randNum] == 0 {
-            if randPercent == 10 {
-                positions[randNum] = 4
-                checkLose(positions: positions)
-            } else {
-                positions[randNum] = 2
-                checkLose(positions: positions)
+        for i in 0 ..< positions.count { // Get available slots and put their indexes into an array
+            if positions[i] == 0 {
+                availableSlots.append(i)
             }
-        } else if positions.contains(where: {$0 == 0}) { // If there is an available space on the board, continue
-            generateRandomBlock(positions: &positions)
+        }
+        
+        let chosenSlot = availableSlots.randomElement()! // Choose a random element in the array
+        
+        if randPercent == 10 {
+            positions[chosenSlot] = 4
+            checkLose(positions: positions)
+        } else {
+            positions[chosenSlot] = 2
+            checkLose(positions: positions)
         }
     }
     func moveRight(positions: inout [Int]) {
