@@ -13,21 +13,22 @@ class Title : RenderableEntity {
         // Using a meaningful name can be helpful for debugging
         super.init(name:"Title")
     }
-
+    
     override func setup(canvasSize:Size, canvas:Canvas) {
         title = Text(location: Point(x: canvasSize.center.x, y: canvasSize.center.y - 300), text: "2048")
         title.font = "50pt Roboto"
-        let fromPoint = Point(x: title.location.x - 220, y: title.location.y)
-        let toPoint = Point(x: title.location.x + 220, y: title.location.y)
+        let fromPoint = Point(x: title.location.x - 170, y: title.location.y)
+        let toPoint = Point(x: title.location.x + 170, y: title.location.y)
         let tween = Tween(from:fromPoint, to:toPoint, duration:1.5, ease:ease, update: {self.title.location = $0})
         tween.repeatStyle = .forever
         tween.direction = .alternate
 
         animationController.register(animation: tween)
         tween.play()
+
     }
 
     override func render(canvas: Canvas) {
-        canvas.render(title)
+        canvas.render(FillStyle(color: Color(red: 119, green: 110, blue: 101)), title)
     }
 }

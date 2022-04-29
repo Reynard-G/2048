@@ -7,7 +7,8 @@ import Scenes
 
 
 class ForegroundLayer : Layer {
-    let title = Title(ease:.inOutExpo)
+
+    let title = Title(ease: .inOutExpo)
     
       init() {
           // Using a meaningful name can be helpful for debugging
