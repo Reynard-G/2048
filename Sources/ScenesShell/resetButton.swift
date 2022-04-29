@@ -2,6 +2,7 @@ import Scenes
 import Igis
 
 class ResetButton : RenderableEntity {
+
     let interaction = InteractionLayer()
 
     public func pressedButton() {
@@ -10,6 +11,7 @@ class ResetButton : RenderableEntity {
         interaction.generateRandomBlock(positions: &positions)
         interaction.generateRandomBlock(positions: &positions)
     }
+
     init() {
         // Using a meaningful name can be helpful for debugging
         super.init(name:"ResetButton")

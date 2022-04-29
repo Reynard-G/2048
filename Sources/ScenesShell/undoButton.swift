@@ -2,6 +2,7 @@ import Scenes
 import Igis
 
 class UndoButton : RenderableEntity {
+
     var prevPosition : [Int] = []
     var prevScore : Int = 0
     
@@ -11,6 +12,7 @@ class UndoButton : RenderableEntity {
             score = prevScore
         }
     }
+
     init() {
         // Using a meaningful name can be helpful for debugging
         super.init(name:"UndoButton")

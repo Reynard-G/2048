@@ -3,6 +3,7 @@ import Igis
 import ScenesAnimations
 
 class Title : RenderableEntity {
+
     var title = Text(location: Point(x: 0, y: 0), text: "")
     var ease : EasingStyle
 
@@ -25,6 +26,7 @@ class Title : RenderableEntity {
         animationController.register(animation: tween)
         tween.play()
     }
+
     override func render(canvas: Canvas) {
         canvas.render(title)
     }

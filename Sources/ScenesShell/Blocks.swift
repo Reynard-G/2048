@@ -11,6 +11,7 @@ class Blocks : RenderableEntity {
             canvas.render(canvasClearRectangle)
         }
     }
+
     func getCoords(canvas: Canvas, coord: String, index: Double) -> Double {
         // Convert the index f the array to canvas coordinates
         if let canvasSize = canvas.canvasSize {
@@ -27,6 +28,7 @@ class Blocks : RenderableEntity {
         }
         return 0.0 // Will never reach this unless "coord" is not "x" or "y", which will be a mistake.
     }
+
     func renderBlock(canvas: Canvas, value: Int, x: Double, y: Double) {
         // "Database" of blocks that will be rendered
         let rect = Rect(topLeft: Point(x: Int(x), y: Int(y)), size: Size(width: 100, height: 100))
@@ -93,6 +95,7 @@ class Blocks : RenderableEntity {
             break;
         }
     }
+
     func renderLayout(canvas: Canvas) {
         // Loop 16 times throughout the array and render in the approriate variables from the function.
         for i in 0 ..< positions.count {
@@ -138,6 +141,7 @@ class Blocks : RenderableEntity {
             }
         }
     }
+
     init() {
         // Using a meaningful name can be helpful for debugging
         super.init(name:"Blocks")

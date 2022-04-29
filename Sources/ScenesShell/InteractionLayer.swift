@@ -1,4 +1,3 @@
-
 import Scenes
 import Igis
 import ScenesControls
@@ -13,6 +12,7 @@ public var positions : [Int] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 public var score : Int = 0
 
 class InteractionLayer : Layer, KeyDownHandler {
+
     let renderAll = Render()
     let displayLoseBackground = LoseBackground()
     let displayLoseText = LoseText()
@@ -25,6 +25,7 @@ class InteractionLayer : Layer, KeyDownHandler {
     func generateRandomBlock(positions: inout [Int]) {
         var availableSlots : [Int] = []
         let randPercent : Int = Int.random(in: 1 ... 10)
+
         for i in 0 ..< positions.count { // Get available slots and put their indexes into an array
             if positions[i] == 0 {
                 availableSlots.append(i)
@@ -41,6 +42,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             checkLose(positions: positions)
         }
     }
+
     func moveRight(positions: inout [Int]) {
         for i in 0 ..< positions.count {
             if i % 4 == 0 {
@@ -60,6 +62,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             }
         }
     }
+
     func moveLeft(positions: inout [Int]) {
         for i in 0 ..< positions.count {
             if i % 4 == 0 {
@@ -79,6 +82,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             }
         }
     }
+
     func moveUp(positions: inout [Int]) {
         for i in 0 ..< 4 {
             let total1 : Int = positions[i]
@@ -96,6 +100,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             positions[i + 12] = newColumn[3]
         }
     }
+
     func moveDown(positions: inout [Int]) {
         for i in 0 ..< 4 {
             let total1 : Int = positions[i]
@@ -113,6 +118,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             positions[i + 12] = newColumn[3]
         }
     }
+
     func combineRowLeft(positions: inout [Int]) {
         for i in 1 ..< 16 {
             if (i != 4 && i != 8 && i != 12) { // Prevents combining from other rows
@@ -126,6 +132,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             checkWin(positions: positions)
         }
     }
+
     func combineRowRight(positions: inout [Int]) {
         for i in (0 ..< 15).reversed() {
             if (i != 11 && i != 7 && i != 3) { // Prevents combining from other rows
@@ -139,6 +146,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             checkWin(positions: positions)
         }
     }
+
     func combineColumnUp(positions: inout [Int]) {
         for i in 0 ..< 12 {
             if positions[i] == positions[i + 4] {
@@ -150,6 +158,7 @@ class InteractionLayer : Layer, KeyDownHandler {
         }
         checkWin(positions: positions)
     }
+
     func combineColumnDown(positions: inout [Int]) {
         for i in (0 ..< 12).reversed() {
             if positions[i] == positions[i + 4] {
@@ -161,6 +170,7 @@ class InteractionLayer : Layer, KeyDownHandler {
         }
         checkWin(positions: positions)
     }
+
     func checkWin(positions: [Int]) {
         for i in  0 ..< 16 {
             if positions[i] == 2048 {
@@ -170,6 +180,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             }
         }
     }
+
     func checkLose(positions: [Int]) {
         var availableSpace : Int = 0
         var gameOver : Bool = true
@@ -211,6 +222,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             insert(entity: displayLoseText, at: .front)
         }
     }
+
     func onKeyDown(key:String, code:String, ctrlKey:Bool, shiftKey:Bool, altKey:Bool, metaKey:Bool) {
         if key == "w" || code == "ArrowUp" {
             prevPos = positions
@@ -262,6 +274,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             }
         }
     }
+
     func resetbutton() -> ResetButton {
         guard let mainScene = scene as? MainScene else {
             fatalError("mainScene of type MainScene is required")
@@ -270,6 +283,7 @@ class InteractionLayer : Layer, KeyDownHandler {
         let ResetButton = backgroundLayer.resetButton
         return ResetButton
     }
+
     func undobutton() -> UndoButton {
         guard let mainScene = scene as? MainScene else {
             fatalError("mainScene of type MainScene is required")
@@ -278,6 +292,7 @@ class InteractionLayer : Layer, KeyDownHandler {
         let UndoButton = backgroundLayer.undoButton
         return UndoButton
     }
+
     func resetButtonClickHandler(control: Control, localLocation: Point) {
         remove(entity: displayLoseBackground)
         remove(entity: displayLoseText)
@@ -288,6 +303,7 @@ class InteractionLayer : Layer, KeyDownHandler {
         dispatcher.registerKeyDownHandler(handler: self)
         resetbutton().pressedButton()
     }
+
     func undoButtonClickHandler(control: Control, localLocation: Point) {
         remove(entity: displayLoseBackground)
         remove(entity: displayLoseText)
@@ -298,6 +314,7 @@ class InteractionLayer : Layer, KeyDownHandler {
         dispatcher.registerKeyDownHandler(handler: self)
         undobutton().pressedButton()
     }
+
     init() {
         // Using a meaningful name can be helpful for debugging
         super.init(name:"Interaction")
@@ -309,6 +326,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             generateRandomBlock(positions: &positions)
         }
     }
+
     override func preSetup(canvasSize: Size, canvas: Canvas) {
         let resetButton = Button(name: "resetButton", labelString: "New Game", topLeft: Point(x: canvasSize.center.x - 225, y: canvasSize.center.y - 257), fixedSize: Size(width: 120, height: 30),
                                  controlStyle: ControlStyle(foregroundStrokeStyle: StrokeStyle(color: Color(red: 251, green: 249, blue: 239)),
@@ -326,10 +344,12 @@ class InteractionLayer : Layer, KeyDownHandler {
         insert(entity: undoButton, at: .front)
         dispatcher.registerKeyDownHandler(handler: self)
     }
+
     override func postSetup(canvasSize: Size, canvas: Canvas) {
         checkWin(positions: positions)
         checkLose(positions: positions)
     }
+
     override func postTeardown() {
         dispatcher.unregisterKeyDownHandler(handler: self)
     }

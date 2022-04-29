@@ -18,6 +18,7 @@ class Score : RenderableEntity {
         // Using a meaningful name can be helpful for debugging
         super.init(name:"Score")
     }
+
     override func render(canvas: Canvas) {
         renderScore(canvas: canvas, score: score)
     }

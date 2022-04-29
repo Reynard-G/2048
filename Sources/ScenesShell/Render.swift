@@ -2,6 +2,7 @@ import Scenes
 import Igis
 
 class Render : RenderableEntity {
+
     let Block = Blocks()
     let Board = Background()
     let ScoreDisplay = Score()
@@ -9,6 +10,7 @@ class Render : RenderableEntity {
     init() {
         super.init(name:"Render")
     }
+
     override func render(canvas: Canvas) {
         // Render during each render cycle
         if let canvasSize = canvas.canvasSize {
