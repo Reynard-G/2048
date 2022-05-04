@@ -37,6 +37,15 @@ class Background : RenderableEntity {
         }
     }
 
+    public func musicHandler(PlayOrPause: String) {
+        if PlayOrPause.uppercased() == "PLAY" {
+            doodoo.mode = .play
+        } else if PlayOrPause.uppercased() == "PAUSE" {
+            doodoo.mode = .pause
+            print("test")
+        }
+    }
+
     init() {
         // Dream Speedrun Music
         doodoo = Audio(sourceURL: URL(string: "https://codermerlin.com/users/reynard-gunawan/Dream%20Speedrun%20Music.mp3")!, shouldLoop: true)

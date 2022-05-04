@@ -8,7 +8,7 @@ import Foundation
         Internally, it maintains the RenderableEntities for this layer.
    */
 
-public var positions : [Int] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+public var positions : [Int] = [0, 0, 0, 0, 0, 0, 0, 1024, 0, 0, 0, 0, 0, 0, 0, 1024]
 public var score : Int = 0
 
 class InteractionLayer : Layer, KeyDownHandler {
@@ -136,8 +136,8 @@ class InteractionLayer : Layer, KeyDownHandler {
                     score += combinedTotal
                 }
             }
-            checkWin(positions: positions)
         }
+        checkWin(positions: positions)
     }
     
     // Combine viable blocks to the right
@@ -151,8 +151,8 @@ class InteractionLayer : Layer, KeyDownHandler {
                     score += combinedTotal
                 }
             }
-            checkWin(positions: positions)
         }
+        checkWin(positions: positions)
     }
     
     // Combine viable blocks upwards
@@ -248,6 +248,7 @@ class InteractionLayer : Layer, KeyDownHandler {
                 undobutton().prevScore = prevScr
                 generateRandomBlock(positions: &positions)
             }
+            Board.musicHandler(PlayOrPause: "pause")
         } else if key == "a" || code == "ArrowLeft" {
             prevPos = positions
             prevScr = score
