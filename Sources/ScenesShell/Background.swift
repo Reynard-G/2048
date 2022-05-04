@@ -6,11 +6,10 @@ import Foundation
         This class is responsible for rendering the background.
    */
 
-
 class Background : RenderableEntity {
 
     var doodoo : Audio
-    var isBackgroundPlaying = false
+    var isDooDooPlaying = false
     
     func board(canvas: Canvas, canvasSize: Size, biggerSquare: Rect, square: Rect) {
         // Setup 4x4 Board
@@ -41,17 +40,18 @@ class Background : RenderableEntity {
     init() {
         // Dream Speedrun Music
         doodoo = Audio(sourceURL: URL(string: "https://codermerlin.com/users/reynard-gunawan/Dream%20Speedrun%20Music.mp3")!, shouldLoop: true)
+        doodoo.mode = .play
         super.init(name:"Background")
     }
-
+    
     override func setup(canvasSize: Size, canvas: Canvas) {
         canvas.setup(doodoo)
     }
 
     override func render(canvas: Canvas) {
-        if (isBackgroundPlaying == false) && doodoo.isReady == true {
+        if (isDooDooPlaying == false) && doodoo.isReady == true {
             canvas.render(doodoo)
-            isBackgroundPlaying = true
+            isDooDooPlaying = true
         }
     }
 }

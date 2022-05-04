@@ -12,16 +12,18 @@ public var positions : [Int] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 public var score : Int = 0
 
 class InteractionLayer : Layer, KeyDownHandler {
-
+    
     let renderAll = Render()
     let displayLoseBackground = LoseBackground()
     let displayLoseText = LoseText()
     let displayWinBackground = WinBackground()
     let displayWinText = WinText()
     let clearAlpha = resetAlpha()
+    let Board = Background()
     var prevPos : [Int] = []
     var prevScr : Int = 0
-
+    
+    // Generate a random block on an available slot
     func generateRandomBlock(positions: inout [Int]) {
         var availableSlots : [Int] = []
         let randPercent : Int = Int.random(in: 1 ... 10)
@@ -42,7 +44,8 @@ class InteractionLayer : Layer, KeyDownHandler {
             checkLose(positions: positions)
         }
     }
-
+    
+    // Shift the blocks over to the right
     func moveRight(positions: inout [Int]) {
         for i in 0 ..< positions.count {
             if i % 4 == 0 {
@@ -62,7 +65,8 @@ class InteractionLayer : Layer, KeyDownHandler {
             }
         }
     }
-
+    
+    // Shit the blocks over to the left
     func moveLeft(positions: inout [Int]) {
         for i in 0 ..< positions.count {
             if i % 4 == 0 {
@@ -82,7 +86,8 @@ class InteractionLayer : Layer, KeyDownHandler {
             }
         }
     }
-
+    
+    // Shift blocks upwards
     func moveUp(positions: inout [Int]) {
         for i in 0 ..< 4 {
             let total1 : Int = positions[i]
@@ -100,7 +105,8 @@ class InteractionLayer : Layer, KeyDownHandler {
             positions[i + 12] = newColumn[3]
         }
     }
-
+    
+    // Shift blocks downwards
     func moveDown(positions: inout [Int]) {
         for i in 0 ..< 4 {
             let total1 : Int = positions[i]
@@ -118,7 +124,8 @@ class InteractionLayer : Layer, KeyDownHandler {
             positions[i + 12] = newColumn[3]
         }
     }
-
+    
+    // Combine viable blocks to the left
     func combineRowLeft(positions: inout [Int]) {
         for i in 1 ..< 16 {
             if (i != 4 && i != 8 && i != 12) { // Prevents combining from other rows
@@ -132,7 +139,8 @@ class InteractionLayer : Layer, KeyDownHandler {
             checkWin(positions: positions)
         }
     }
-
+    
+    // Combine viable blocks to the right
     func combineRowRight(positions: inout [Int]) {
         for i in (0 ..< 15).reversed() {
             if (i != 11 && i != 7 && i != 3) { // Prevents combining from other rows
@@ -146,7 +154,8 @@ class InteractionLayer : Layer, KeyDownHandler {
             checkWin(positions: positions)
         }
     }
-
+    
+    // Combine viable blocks upwards
     func combineColumnUp(positions: inout [Int]) {
         for i in 0 ..< 12 {
             if positions[i] == positions[i + 4] {
@@ -158,7 +167,8 @@ class InteractionLayer : Layer, KeyDownHandler {
         }
         checkWin(positions: positions)
     }
-
+    
+    // Combine viable blocks downwards
     func combineColumnDown(positions: inout [Int]) {
         for i in (0 ..< 12).reversed() {
             if positions[i] == positions[i + 4] {
@@ -170,17 +180,18 @@ class InteractionLayer : Layer, KeyDownHandler {
         }
         checkWin(positions: positions)
     }
-
+    
+    // Check if any blocks on the board are "2048"
     func checkWin(positions: [Int]) {
         for i in  0 ..< 16 {
             if positions[i] == 2048 {
                 insert(entity: displayWinBackground, at: .front)
                 insert(entity: displayWinText, at: .front)
-                dispatcher.unregisterKeyDownHandler(handler: self)
             }
         }
     }
-
+    
+    // Check if you are able to combine any blocks on the board and if there is any space left
     func checkLose(positions: [Int]) {
         var availableSpace : Int = 0
         var gameOver : Bool = true
@@ -222,7 +233,8 @@ class InteractionLayer : Layer, KeyDownHandler {
             insert(entity: displayLoseText, at: .front)
         }
     }
-
+    
+    // Listen to key presses and react accordingly
     func onKeyDown(key:String, code:String, ctrlKey:Bool, shiftKey:Bool, altKey:Bool, metaKey:Bool) {
         if key == "w" || code == "ArrowUp" {
             prevPos = positions
@@ -274,7 +286,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             }
         }
     }
-
+    
     func resetbutton() -> ResetButton {
         guard let mainScene = scene as? MainScene else {
             fatalError("mainScene of type MainScene is required")
@@ -283,7 +295,7 @@ class InteractionLayer : Layer, KeyDownHandler {
         let ResetButton = backgroundLayer.resetButton
         return ResetButton
     }
-
+    
     func undobutton() -> UndoButton {
         guard let mainScene = scene as? MainScene else {
             fatalError("mainScene of type MainScene is required")
@@ -292,7 +304,8 @@ class InteractionLayer : Layer, KeyDownHandler {
         let UndoButton = backgroundLayer.undoButton
         return UndoButton
     }
-
+    
+    // When the resetButton is pressed, execute
     func resetButtonClickHandler(control: Control, localLocation: Point) {
         remove(entity: displayLoseBackground)
         remove(entity: displayLoseText)
@@ -303,7 +316,8 @@ class InteractionLayer : Layer, KeyDownHandler {
         dispatcher.registerKeyDownHandler(handler: self)
         resetbutton().pressedButton()
     }
-
+    
+    // When the undoButton is pressed, execute
     func undoButtonClickHandler(control: Control, localLocation: Point) {
         remove(entity: displayLoseBackground)
         remove(entity: displayLoseText)
@@ -316,17 +330,15 @@ class InteractionLayer : Layer, KeyDownHandler {
     }
 
     init() {
-        // Using a meaningful name can be helpful for debugging
         super.init(name:"Interaction")
-
-        // We insert our RenderableEntities in the constructor
+        
         insert(entity: renderAll, at: .back)
         if positions.allSatisfy({$0 == 0}) { // If all of elements of positions is 0, continue
             generateRandomBlock(positions: &positions)
             generateRandomBlock(positions: &positions)
         }
     }
-
+    
     override func preSetup(canvasSize: Size, canvas: Canvas) {
         let resetButton = Button(name: "resetButton", labelString: "New Game", topLeft: Point(x: canvasSize.center.x - 225, y: canvasSize.center.y - 257), fixedSize: Size(width: 120, height: 30),
                                  controlStyle: ControlStyle(foregroundStrokeStyle: StrokeStyle(color: Color(red: 251, green: 249, blue: 239)),
@@ -344,12 +356,12 @@ class InteractionLayer : Layer, KeyDownHandler {
         insert(entity: undoButton, at: .front)
         dispatcher.registerKeyDownHandler(handler: self)
     }
-
+    
     override func postSetup(canvasSize: Size, canvas: Canvas) {
         checkWin(positions: positions)
         checkLose(positions: positions)
     }
-
+    
     override func postTeardown() {
         dispatcher.unregisterKeyDownHandler(handler: self)
     }

@@ -4,6 +4,7 @@ import Igis
 class ResetButton : RenderableEntity {
 
     let interaction = InteractionLayer()
+    let Board = Background()
 
     public func pressedButton() {
         positions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
