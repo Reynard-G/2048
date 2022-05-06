@@ -9,7 +9,8 @@ class Music : RenderableEntity {
     var geico : Audio
     var isRickrollPlaying = false
     var isGeicoPlaying = false
-    
+
+    // Set the URLs for music
     init() {
         doodoodoodoo = Audio(sourceURL: URL(string: "https://codermerlin.com/users/reynard-gunawan/Dream%20Speedrun%20Music.mp3")!, shouldLoop: true)
         rickroll = Audio(sourceURL: URL(string: "https://codermerlin.com/users/reynard-gunawan/Rickroll.mp3")!, shouldLoop: true)
@@ -22,7 +23,8 @@ class Music : RenderableEntity {
         canvas.setup(doodoodoodoo, rickroll, geico)
         canvas.render(doodoodoodoo)
     }
-    
+
+    // Play music according to when the player has won/loss
     override func render(canvas: Canvas) {
         guard let layer = layer as? InteractionLayer else {
             fatalError("Failed to get InteractionLayer")

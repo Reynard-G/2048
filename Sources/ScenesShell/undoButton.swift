@@ -5,7 +5,8 @@ class UndoButton : RenderableEntity {
 
     var prevPosition : [Int] = []
     var prevScore : Int = 0
-    
+
+    // Executed each time the undo button is pressed
     public func pressedButton() {
         if prevPosition.isEmpty == false && positions != prevPosition {
             positions = prevPosition

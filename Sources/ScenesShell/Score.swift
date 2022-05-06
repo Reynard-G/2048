@@ -3,6 +3,7 @@ import Igis
 
 class Score : RenderableEntity {
 
+    // Render in the score for the amount of total combined blocks
     func renderScore(canvas: Canvas, score: Int) {
         if let canvasSize = canvas.canvasSize {
             let scoreText = Text(location: Point(x: canvasSize.center.x + 140, y: canvasSize.center.y - 233), text: " Score: \(String(score))")

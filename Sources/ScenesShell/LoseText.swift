@@ -3,6 +3,7 @@ import Igis
 
 class LoseText : RenderableEntity {
 
+    // Render in the losing text
     func loseText(canvas: Canvas) {
         if let canvasSize = canvas.canvasSize {
             let gameOver = Text(location: Point(x: canvasSize.center.x, y: canvasSize.center.y - 25), text: "Game Over!")

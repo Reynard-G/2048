@@ -2,10 +2,6 @@ import Scenes
 import Igis
 import Foundation
 
-  /*
-        This class is responsible for rendering the background.
-   */
-
 class Background : RenderableEntity {
 
     // Setup a 4x4 Board
@@ -35,7 +31,6 @@ class Background : RenderableEntity {
     }
     
     init() {
-        // Dream Speedrun Music
         super.init(name:"Background")
     }
 }

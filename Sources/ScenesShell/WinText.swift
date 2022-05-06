@@ -3,6 +3,7 @@ import Igis
 
 class WinText : RenderableEntity {
 
+    // Render in the winning text
     func winText(canvas: Canvas) {
         if let canvasSize = canvas.canvasSize {
             let gameOver = Text(location: Point(x: canvasSize.center.x, y: canvasSize.center.y - 25), text: "You Win!")

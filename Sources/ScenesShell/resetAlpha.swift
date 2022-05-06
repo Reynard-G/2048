@@ -8,6 +8,7 @@ class resetAlpha : RenderableEntity {
         super.init(name:"resetAlpha")
     }
 
+    // Reset the alpha/opacity of the canvas to 100%
     override func render(canvas: Canvas) {
         canvas.render(Alpha(alphaValue: 1.0))
     }

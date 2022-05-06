@@ -3,6 +3,7 @@ import Igis
 
 class WinBackground : RenderableEntity {
 
+    // Render in the winning background
     func winBackground(canvas: Canvas) {
         if let canvasSize = canvas.canvasSize {
             let rect = Rect(topLeft: Point(x: canvasSize.center.x - 225, y: canvasSize.center.y - 225), size: Size(width: 450, height: 450))

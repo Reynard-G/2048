@@ -6,6 +6,7 @@ class ResetButton : RenderableEntity {
     let interaction = InteractionLayer()
     let Board = Background()
 
+    // Executed each time the reset button is pressed
     public func pressedButton() {
         positions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         score = 0

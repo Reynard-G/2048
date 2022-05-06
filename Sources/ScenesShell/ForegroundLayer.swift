@@ -11,7 +11,5 @@ class ForegroundLayer : Layer {
       init() {
           // Using a meaningful name can be helpful for debugging
           super.init(name:"Foreground")
-
-          // We insert our RenderableEntities in the constructor
       }
   }

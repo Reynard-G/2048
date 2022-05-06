@@ -26,6 +26,15 @@ class InteractionLayer : Layer, KeyDownHandler {
     var prevScr : Int = 0
     var isLost = false
     var isWon = false
+
+    // Get the previous positions and score for the undo button
+    func getPrevArrAndScore(currentPositions: [Int], prevPositions: [Int], prevScore: Int) {
+        if prevPositions != currentPositions {
+            undobutton().prevPosition = prevPositions
+            undobutton().prevScore = prevScore
+            generateRandomBlock(positions: &positions)
+        }
+    }
     
     // Generate a random block on an available slot
     func generateRandomBlock(positions: inout [Int]) {
@@ -247,51 +256,31 @@ class InteractionLayer : Layer, KeyDownHandler {
         if key == "w" || code == "ArrowUp" {
             prevPos = positions
             prevScr = score
-            moveUp(positions: &positions) // Check if it will be the same positions
+            moveUp(positions: &positions)
             combineColumnUp(positions: &positions)
             moveUp(positions: &positions)
-            let currPos = positions
-            if prevPos != currPos {
-                undobutton().prevPosition = prevPos
-                undobutton().prevScore = prevScr
-                generateRandomBlock(positions: &positions)
-            }
+            getPrevArrAndScore(currentPositions: positions, prevPositions: prevPos, prevScore: prevScr)
         } else if key == "a" || code == "ArrowLeft" {
             prevPos = positions
             prevScr = score
-            moveLeft(positions: &positions) // Check if it will be the same positions
+            moveLeft(positions: &positions)
             combineRowLeft(positions: &positions)
             moveLeft(positions: &positions)
-            let currPos = positions
-            if prevPos != currPos {
-                undobutton().prevPosition = prevPos
-                undobutton().prevScore = prevScr
-                generateRandomBlock(positions: &positions)
-            }
+            getPrevArrAndScore(currentPositions: positions, prevPositions: prevPos, prevScore: prevScr)
         } else if key == "s" || code == "ArrowDown" {
             prevPos = positions
             prevScr = score
-            moveDown(positions: &positions) // Check if it will be the same positions
+            moveDown(positions: &positions)
             combineColumnDown(positions: &positions)
             moveDown(positions: &positions)
-            let currPos = positions
-            if prevPos != currPos {
-                undobutton().prevPosition = prevPos
-                undobutton().prevScore = prevScr
-                generateRandomBlock(positions: &positions)
-            }
+            getPrevArrAndScore(currentPositions: positions, prevPositions: prevPos, prevScore: prevScr)
         } else if key == "d" || code == "ArrowRight" {
             prevPos = positions
             prevScr = score
-            moveRight(positions: &positions) // Check if it will be the same positions
+            moveRight(positions: &positions)
             combineRowRight(positions: &positions)
             moveRight(positions: &positions)
-            let currPos = positions
-            if prevPos != currPos {
-                undobutton().prevPosition = prevPos
-                undobutton().prevScore = prevScr
-                generateRandomBlock(positions: &positions)
-            }
+            getPrevArrAndScore(currentPositions: positions, prevPositions: prevPos, prevScore: prevScr)
         }
     }
     
@@ -354,7 +343,8 @@ class InteractionLayer : Layer, KeyDownHandler {
             generateRandomBlock(positions: &positions)
         }
     }
-    
+
+    // Setup the reset and undo buttons
     override func preSetup(canvasSize: Size, canvas: Canvas) {
         let resetButton = Button(name: "resetButton", labelString: "New Game", topLeft: Point(x: canvasSize.center.x - 225, y: canvasSize.center.y - 257), fixedSize: Size(width: 120, height: 30),
                                  controlStyle: ControlStyle(foregroundStrokeStyle: StrokeStyle(color: Color(red: 251, green: 249, blue: 239)),
@@ -372,7 +362,8 @@ class InteractionLayer : Layer, KeyDownHandler {
         insert(entity: undoButton, at: .front)
         dispatcher.registerKeyDownHandler(handler: self)
     }
-    
+
+    // Check if the player has already won from previous attempts
     override func postSetup(canvasSize: Size, canvas: Canvas) {
         checkWin(positions: positions)
         checkLose(positions: positions)

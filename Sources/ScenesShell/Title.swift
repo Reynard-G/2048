@@ -14,7 +14,8 @@ class Title : RenderableEntity {
         // Using a meaningful name can be helpful for debugging
         super.init(name:"Title")
     }
-    
+
+    // Set up the title animation
     override func setup(canvasSize:Size, canvas:Canvas) {
         title = Text(location: Point(x: canvasSize.center.x, y: canvasSize.center.y - 300), text: "\(text)")
         title.font = "50pt Roboto"
