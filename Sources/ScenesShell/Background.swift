@@ -8,11 +8,8 @@ import Foundation
 
 class Background : RenderableEntity {
 
-    var doodoo : Audio
-    var isDooDooPlaying = false
-    
+    // Setup a 4x4 Board
     func board(canvas: Canvas, canvasSize: Size, biggerSquare: Rect, square: Rect) {
-        // Setup 4x4 Board
         var currentRect = square
         let bigBoiSquare = Rectangle(rect: biggerSquare, fillMode: .fill)
         var Square = Rectangle(rect: square, fillMode: .fill)
@@ -28,39 +25,17 @@ class Background : RenderableEntity {
         }
     }
 
+    // Peach Background
     func background(canvas: Canvas) {
-        // Peach Background
         if let canvasSize = canvas.canvasSize {
             let canvasRect = Rect(topLeft: Point(), size: canvasSize)
             let canvasRectangle = Rectangle(rect: canvasRect, fillMode: .fill)
             canvas.render(FillStyle(color: Color(red: 251, green: 249, blue: 239)), canvasRectangle)
         }
     }
-
-    public func musicHandler(PlayOrPause: String) {
-        if PlayOrPause.uppercased() == "PLAY" {
-            doodoo.mode = .play
-        } else if PlayOrPause.uppercased() == "PAUSE" {
-            doodoo.mode = .pause
-            print("test")
-        }
-    }
-
+    
     init() {
         // Dream Speedrun Music
-        doodoo = Audio(sourceURL: URL(string: "https://codermerlin.com/users/reynard-gunawan/Dream%20Speedrun%20Music.mp3")!, shouldLoop: true)
-        doodoo.mode = .play
         super.init(name:"Background")
-    }
-    
-    override func setup(canvasSize: Size, canvas: Canvas) {
-        canvas.setup(doodoo)
-    }
-
-    override func render(canvas: Canvas) {
-        if (isDooDooPlaying == false) && doodoo.isReady == true {
-            canvas.render(doodoo)
-            isDooDooPlaying = true
-        }
     }
 }

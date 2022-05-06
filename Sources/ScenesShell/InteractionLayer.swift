@@ -18,10 +18,11 @@ class InteractionLayer : Layer, KeyDownHandler {
     let displayLoseText = LoseText()
     let displayWinBackground = WinBackground()
     let displayWinText = WinText()
+    let music = Music()
     let clearAlpha = resetAlpha()
-    let Board = Background()
     var prevPos : [Int] = []
     var prevScr : Int = 0
+    var isLost = false
     
     // Generate a random block on an available slot
     func generateRandomBlock(positions: inout [Int]) {
@@ -66,7 +67,7 @@ class InteractionLayer : Layer, KeyDownHandler {
         }
     }
     
-    // Shit the blocks over to the left
+    // Shift the blocks over to the left
     func moveLeft(positions: inout [Int]) {
         for i in 0 ..< positions.count {
             if i % 4 == 0 {
@@ -229,6 +230,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             }
         }
         if gameOver == true && availableSpace == 0 {
+            isLost = true
             insert(entity: displayLoseBackground, at: .front)
             insert(entity: displayLoseText, at: .front)
         }
@@ -248,7 +250,6 @@ class InteractionLayer : Layer, KeyDownHandler {
                 undobutton().prevScore = prevScr
                 generateRandomBlock(positions: &positions)
             }
-            Board.musicHandler(PlayOrPause: "pause")
         } else if key == "a" || code == "ArrowLeft" {
             prevPos = positions
             prevScr = score
@@ -308,6 +309,7 @@ class InteractionLayer : Layer, KeyDownHandler {
     
     // When the resetButton is pressed, execute
     func resetButtonClickHandler(control: Control, localLocation: Point) {
+        isLost = false
         remove(entity: displayLoseBackground)
         remove(entity: displayLoseText)
         remove(entity: displayWinBackground)
@@ -320,6 +322,7 @@ class InteractionLayer : Layer, KeyDownHandler {
     
     // When the undoButton is pressed, execute
     func undoButtonClickHandler(control: Control, localLocation: Point) {
+        isLost = false
         remove(entity: displayLoseBackground)
         remove(entity: displayLoseText)
         remove(entity: displayWinBackground)
@@ -334,6 +337,7 @@ class InteractionLayer : Layer, KeyDownHandler {
         super.init(name:"Interaction")
         
         insert(entity: renderAll, at: .back)
+        insert(entity: music, at: .front)
         if positions.allSatisfy({$0 == 0}) { // If all of elements of positions is 0, continue
             generateRandomBlock(positions: &positions)
             generateRandomBlock(positions: &positions)
