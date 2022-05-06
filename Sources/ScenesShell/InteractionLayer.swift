@@ -19,10 +19,13 @@ class InteractionLayer : Layer, KeyDownHandler {
     let displayWinBackground = WinBackground()
     let displayWinText = WinText()
     let music = Music()
+    var title2048 = Title(ease: .inOutExpo, text: "2048")
+    var titleL = Title(ease: .inOutExpo, text: "L")
     let clearAlpha = resetAlpha()
     var prevPos : [Int] = []
     var prevScr : Int = 0
     var isLost = false
+    var isWon = false
     
     // Generate a random block on an available slot
     func generateRandomBlock(positions: inout [Int]) {
@@ -186,6 +189,7 @@ class InteractionLayer : Layer, KeyDownHandler {
     func checkWin(positions: [Int]) {
         for i in  0 ..< 16 {
             if positions[i] == 2048 {
+                isWon = true
                 insert(entity: displayWinBackground, at: .front)
                 insert(entity: displayWinText, at: .front)
             }
@@ -233,6 +237,8 @@ class InteractionLayer : Layer, KeyDownHandler {
             isLost = true
             insert(entity: displayLoseBackground, at: .front)
             insert(entity: displayLoseText, at: .front)
+            remove(entity: title2048)
+            insert(entity: titleL, at: .front)
         }
     }
     
@@ -314,7 +320,9 @@ class InteractionLayer : Layer, KeyDownHandler {
         remove(entity: displayLoseText)
         remove(entity: displayWinBackground)
         remove(entity: displayWinText)
+        remove(entity: titleL)
         insert(entity: clearAlpha, at: .front)
+        insert(entity: title2048, at: .front)
         dispatcher.unregisterKeyDownHandler(handler: self) // Unregister KeyDownHandler if it's already registered
         dispatcher.registerKeyDownHandler(handler: self)
         resetbutton().pressedButton()
@@ -327,7 +335,9 @@ class InteractionLayer : Layer, KeyDownHandler {
         remove(entity: displayLoseText)
         remove(entity: displayWinBackground)
         remove(entity: displayWinText)
+        remove(entity: titleL)
         insert(entity: clearAlpha, at: .front)
+        insert(entity: title2048, at: .front)
         dispatcher.unregisterKeyDownHandler(handler: self) // Unregister KeyDownHandler if it's already registered
         dispatcher.registerKeyDownHandler(handler: self)
         undobutton().pressedButton()
@@ -338,6 +348,7 @@ class InteractionLayer : Layer, KeyDownHandler {
         
         insert(entity: renderAll, at: .back)
         insert(entity: music, at: .front)
+        insert(entity: title2048, at: .front)
         if positions.allSatisfy({$0 == 0}) { // If all of elements of positions is 0, continue
             generateRandomBlock(positions: &positions)
             generateRandomBlock(positions: &positions)
