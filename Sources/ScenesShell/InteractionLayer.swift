@@ -8,7 +8,7 @@ import Foundation
         Internally, it maintains the RenderableEntities for this layer.
    */
 
-public var positions : [Int] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1024, 0, 0, 0, 1024]
+public var positions : [Int] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 public var score : Int = 0
 
 class InteractionLayer : Layer, KeyDownHandler {
