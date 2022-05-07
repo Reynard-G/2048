@@ -15,7 +15,10 @@ class Music : RenderableEntity {
         doodoodoodoo = Audio(sourceURL: URL(string: "https://codermerlin.com/users/reynard-gunawan/Dream%20Speedrun%20Music.mp3")!, shouldLoop: true)
         rickroll = Audio(sourceURL: URL(string: "https://codermerlin.com/users/reynard-gunawan/Rickroll.mp3")!, shouldLoop: true)
         geico = Audio(sourceURL: URL(string: "https://codermerlin.com/users/reynard-gunawan/geico.mp3")!, shouldLoop: true)
-        
+
+        doodoodoodoo.mode = .play
+        rickroll.mode = .pause
+        geico.mode = .pause
         super.init(name:"Music")
     }
 
@@ -32,26 +35,30 @@ class Music : RenderableEntity {
 
         // Play Rickroll when player loses
         if layer.isLost == true && isRickrollPlaying == false {
-            isRickrollPlaying = true
             doodoodoodoo.mode = .pause
             rickroll.mode = .play
+            isRickrollPlaying = true
+            isGeicoPlaying = false
             canvas.render(doodoodoodoo, rickroll)
         }
 
         // Play Geico Commercial when player wins
         if layer.isWon == true && isGeicoPlaying == false {
-            isGeicoPlaying = true
             doodoodoodoo.mode = .pause
             geico.mode = .play
+            isGeicoPlaying = true
+            isRickrollPlaying = false
             canvas.render(doodoodoodoo, geico)
         }
-        
+
         // Play DooDoo after reset button is pressed
-        if layer.isLost == false && isRickrollPlaying == true {
+        if (layer.isLost == false && layer.isWon == false) && (isRickrollPlaying || isGeicoPlaying) {
             rickroll.mode = .pause
+            geico.mode = .pause
             doodoodoodoo.mode = .play
             isRickrollPlaying = false
-            canvas.render(doodoodoodoo, rickroll)
+            isGeicoPlaying = false
+            canvas.render(doodoodoodoo, rickroll, geico)
         }
     }
 }

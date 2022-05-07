@@ -8,7 +8,7 @@ import Foundation
         Internally, it maintains the RenderableEntities for this layer.
    */
 
-public var positions : [Int] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+public var positions : [Int] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1024, 0, 0, 0, 1024]
 public var score : Int = 0
 
 class InteractionLayer : Layer, KeyDownHandler {
@@ -201,6 +201,7 @@ class InteractionLayer : Layer, KeyDownHandler {
                 isWon = true
                 insert(entity: displayWinBackground, at: .front)
                 insert(entity: displayWinText, at: .front)
+                dispatcher.unregisterKeyDownHandler(handler: self)
             }
         }
     }
@@ -248,6 +249,7 @@ class InteractionLayer : Layer, KeyDownHandler {
             insert(entity: displayLoseText, at: .front)
             remove(entity: title2048)
             insert(entity: titleL, at: .front)
+            dispatcher.unregisterKeyDownHandler(handler: self)
         }
     }
     
@@ -304,7 +306,6 @@ class InteractionLayer : Layer, KeyDownHandler {
     
     // When the resetButton is pressed, execute
     func resetButtonClickHandler(control: Control, localLocation: Point) {
-        isLost = false
         remove(entity: displayLoseBackground)
         remove(entity: displayLoseText)
         remove(entity: displayWinBackground)
@@ -312,14 +313,16 @@ class InteractionLayer : Layer, KeyDownHandler {
         remove(entity: titleL)
         insert(entity: clearAlpha, at: .front)
         insert(entity: title2048, at: .front)
-        dispatcher.unregisterKeyDownHandler(handler: self) // Unregister KeyDownHandler if it's already registered
-        dispatcher.registerKeyDownHandler(handler: self)
+        if isWon || isLost {
+            dispatcher.registerKeyDownHandler(handler: self)
+        }
+        isWon = false
+        isLost = false
         resetbutton().pressedButton()
     }
     
     // When the undoButton is pressed, execute
     func undoButtonClickHandler(control: Control, localLocation: Point) {
-        isLost = false
         remove(entity: displayLoseBackground)
         remove(entity: displayLoseText)
         remove(entity: displayWinBackground)
@@ -327,8 +330,11 @@ class InteractionLayer : Layer, KeyDownHandler {
         remove(entity: titleL)
         insert(entity: clearAlpha, at: .front)
         insert(entity: title2048, at: .front)
-        dispatcher.unregisterKeyDownHandler(handler: self) // Unregister KeyDownHandler if it's already registered
-        dispatcher.registerKeyDownHandler(handler: self)
+        if isWon || isLost {
+            dispatcher.registerKeyDownHandler(handler: self)
+        }
+        isWon = false
+        isLost = false
         undobutton().pressedButton()
     }
 
